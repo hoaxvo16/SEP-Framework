@@ -44,7 +44,7 @@ namespace Test
             users.Add(new User() { Id = 3, Name = "Sammy Doe1", Birthday = new DateTime(1991, 9, 2) });
             users.Add(new User() { Id = 3, Name = "Sammy Doe2", Birthday = new DateTime(1991, 9, 2) });
             users.Add(new User() { Id = 3, Name = "Sammy Doe3", Birthday = new DateTime(1991, 9, 2) });
-            FormDataGird.BuildData(users).Render(stackPanel);
+            FormDataGird.BuildData(users).BuildAction("onDelete",Confirm).Render(stackPanel);
         }
 
       
@@ -54,6 +54,10 @@ namespace Test
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             FormDataGird.RemoveAt(0);
+        }
+        private void Confirm()
+        {
+            MessageBox.Show("ok");
         }
 
         private void Undo_Click(object sender, RoutedEventArgs e)

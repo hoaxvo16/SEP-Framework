@@ -16,6 +16,8 @@ namespace SEPFramework
 
         private  History<T> history;
 
+        private Dictionary<string,Action>  actions = new Dictionary<string,Action>();
+
         
 
         public FormData()
@@ -35,6 +37,13 @@ namespace SEPFramework
             return this;
         }
 
+        public FormData<T> BuildAction(string actionName,Action callback)
+        {
+            this.actions[actionName] = callback;
+            return this;
+        }
+        
+
         public void Render(Panel container)
         {
           
@@ -42,8 +51,12 @@ namespace SEPFramework
             
 
             AddControl();
+
+            var btn = new Button();
+            btn.Content = "Test";
            
-            container.Children.Add(dataGrid);          
+            container.Children.Add(dataGrid);
+           
         }
 
         private void DataCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -60,11 +73,13 @@ namespace SEPFramework
 
 
         public void RemoveAt(int index)
+        
         {
             try
             {
                 data.RemoveAt(index);
                 history.Add(data);
+                
                
             }
             catch (Exception)
@@ -108,6 +123,7 @@ namespace SEPFramework
         private void Click(object sender, RoutedEventArgs e)
         {
             RemoveAt(dataGrid.SelectedIndex);
+            this.actions["onDelete"]();
         }
         public void AddControl()
         {
