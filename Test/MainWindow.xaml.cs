@@ -31,7 +31,7 @@ namespace Test
             public DateTime Birthday { get; set; }
         }
 
-        public FormData<User> FormDataGird = new FormData<User>();
+        public FormData<User> FormDataGrid = new FormData<User>();
      
         public MainWindow()
         {
@@ -44,7 +44,7 @@ namespace Test
             users.Add(new User() { Id = 3, Name = "Sammy Doe1", Birthday = new DateTime(1991, 9, 2) });
             users.Add(new User() { Id = 3, Name = "Sammy Doe2", Birthday = new DateTime(1991, 9, 2) });
             users.Add(new User() { Id = 3, Name = "Sammy Doe3", Birthday = new DateTime(1991, 9, 2) });
-            FormDataGird.BuildData(users).BuildAction("onDelete",Confirm).Render(stackPanel);
+            FormDataGrid.BuildData(users).BuildAction("onDelete",Confirm).Render(stackPanel);
         }
 
       
@@ -53,7 +53,7 @@ namespace Test
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            FormDataGird.RemoveAt(0);
+            FormDataGrid.RemoveAt(0);
         }
         private void Confirm()
         {
@@ -62,12 +62,12 @@ namespace Test
 
         private void Undo_Click(object sender, RoutedEventArgs e)
         {
-            FormDataGird.Undo();
+            FormDataGrid.Undo();
         }
 
         private void Redo_Click(object sender, RoutedEventArgs e)
         {
-            FormDataGird.Redo();
+            FormDataGrid.Redo();
         }
     }
 }
