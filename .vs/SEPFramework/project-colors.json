@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    },
+    "0fabd8d6-f264-461e-b2b3-2d88913168dc": {
+      "ProjectGuid": "0fabd8d6-f264-461e-b2b3-2d88913168dc",
+      "DisplayName": "SEPFramework",
+      "ColorIndex": 0
+    },
+    "369fa72d-dc5a-48ec-8c33-08c04e92462d": {
+      "ProjectGuid": "369fa72d-dc5a-48ec-8c33-08c04e92462d",
+      "DisplayName": "Test",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}
