@@ -16,7 +16,6 @@ namespace SEPFramework
         {
             
             step++;
-
             var temp = new List<T>(data);
             try
             {

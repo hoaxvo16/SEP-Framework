@@ -14,6 +14,8 @@
             <Button Width="200" Name="Delete" Click="Delete_Click">Delete</Button>
             <Button Width="200" Name="Undo" Click="Undo_Click">Undo</Button>
             <Button Width="200" Name="Redo" Click="Redo_Click">Redo</Button>
+            <Button Width="200" Name="AddCol" Click="AddCol_Click">AddCol</Button>
+       
         </StackPanel>
     </Grid>
 </Window>

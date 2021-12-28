@@ -7,7 +7,7 @@ using System.Windows.Data;
 
 namespace SEPFramework
 {
-    public  class FormData<T> :Interface<T>.IFormBuilder
+    public  class FormData<T>
     {
 
         protected DataGrid dataGrid;
@@ -16,9 +16,8 @@ namespace SEPFramework
 
         private  History<T> history;
 
-        private Dictionary<string,Action>  actions = new Dictionary<string,Action>();
-
-        
+        private ActionStore actionStore = new ActionStore();
+       
 
         public FormData()
         {
@@ -33,30 +32,34 @@ namespace SEPFramework
             data = new ObservableCollection<T>(dataList);
             data.CollectionChanged += DataCollectionChanged;
             history.Add(data);
-       
             return this;
         }
 
-        public FormData<T> BuildAction(string actionName,Action callback)
+        public FormData<T> BuildAction(string actionName,Action function)
         {
-            this.actions[actionName] = callback;
+            this.actionStore.AddAction(actionName, function);
             return this;
         }
-        
+
+        public FormData<T> BuildButtonColumn(string colHeader, string buttonContent, RoutedEventHandler clickEvent,int width)
+        {
+
+            DataGridTemplateColumn col = ControlBuilder.BuilDataGridColButton(colHeader, buttonContent, clickEvent,width);
+            dataGrid.Columns.Add(col);
+            return this;
+
+        }
+
 
         public void Render(Panel container)
         {
-          
+             
             dataGrid.ItemsSource = data;
             
-
-            AddControl();
-
-            var btn = new Button();
-            btn.Content = "Test";
-           
             container.Children.Add(dataGrid);
-           
+            this.BuildButtonColumn("Delete", "Delete", Click,100);
+            this.BuildButtonColumn("Edit", "Edit", Click,100);
+
         }
 
         private void DataCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -78,9 +81,7 @@ namespace SEPFramework
             try
             {
                 data.RemoveAt(index);
-                history.Add(data);
-                
-               
+                history.Add(data);   
             }
             catch (Exception)
             {
@@ -88,16 +89,30 @@ namespace SEPFramework
             }
         }
 
+        public void RemoveIfPropertyEqual(string propertyName,object value)
+        {
+            List<int> indexList = new List<int>();
+            for (int i= 0;i < data.Count;i++)
+            {
+               var propertyValue =  data[i].GetType().GetProperty(propertyName).GetValue(data[i],null);
+                if (propertyValue == value)
+                {
+                    indexList.Add(i);
+                }
+            }
+
+            foreach(int id in indexList)
+            {
+                data.RemoveAt(id);
+            }
+        }
+
 
         public void Undo()
         {
             var prev = history.Undo();
-
-      
-            
             var temp = new ObservableCollection<T>(prev);
             data.Clear();
-
             foreach(var item in temp)
             {
                 data.Add(item);
@@ -108,7 +123,7 @@ namespace SEPFramework
         public void Redo()
         {
             var next = history.Redo();
-         
+     
             var temp = new ObservableCollection<T>(next);
             data.Clear();
 
@@ -123,31 +138,11 @@ namespace SEPFramework
         private void Click(object sender, RoutedEventArgs e)
         {
             RemoveAt(dataGrid.SelectedIndex);
-            this.actions["onDelete"]();
+            this.actionStore.ExecuteAction("onDelete");
         }
-        public void AddControl()
-        {
-           
+      
 
-            DataGridTemplateColumn col = new DataGridTemplateColumn();
-            col.Header = "MyHeader";
-            FrameworkElementFactory button = new FrameworkElementFactory(typeof(Button));
-            button.SetValue(Button.ContentProperty, "Delete");
-            button.AddHandler(Button.ClickEvent, new RoutedEventHandler(Click));
-            DataTemplate cellTemplate = new DataTemplate();
-            cellTemplate.VisualTree = button;
-            col.CellTemplate = cellTemplate;
-         
-            dataGrid.Columns.Add(col);
-            AddDiaLog();
-            
-        }
-
-        public void AddDiaLog()
-        {
-            var dialog = new Control();
-            dialog.Show();
-        }
+     
       
     }
 }

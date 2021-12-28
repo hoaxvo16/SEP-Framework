@@ -38,13 +38,13 @@ namespace Test
             InitializeComponent();
             //Just init data;
             List<User> users = new List<User>();
-            users.Add(new User() { Id = 1, Name = "John Doe", Birthday = new DateTime(1971, 7, 23) });
-            users.Add(new User() { Id = 2, Name = "Jane Doe", Birthday = new DateTime(1974, 1, 17) });
-            users.Add(new User() { Id = 3, Name = "Sammy Doe", Birthday = new DateTime(1991, 9, 2) });
-            users.Add(new User() { Id = 3, Name = "Sammy Doe1", Birthday = new DateTime(1991, 9, 2) });
-            users.Add(new User() { Id = 3, Name = "Sammy Doe2", Birthday = new DateTime(1991, 9, 2) });
-            users.Add(new User() { Id = 3, Name = "Sammy Doe3", Birthday = new DateTime(1991, 9, 2) });
-            FormDataGrid.BuildData(users).BuildAction("onDelete",Confirm).Render(stackPanel);
+            users.Add(new User() { Id = 1, Name = "Hoa", Birthday = new DateTime(1971, 7, 23) });
+            users.Add(new User() { Id = 2, Name = "An", Birthday = new DateTime(1974, 1, 17) });
+            users.Add(new User() { Id = 3, Name = "Vi", Birthday = new DateTime(1993, 9, 21) });
+            users.Add(new User() { Id = 3, Name = "Tan", Birthday = new DateTime(1996, 6, 1) });
+            users.Add(new User() { Id = 3, Name = "Duy", Birthday = new DateTime(2001, 12, 13) });
+      
+            FormDataGrid.BuildData(users).BuildAction("onColDelete",Confirm).Render(stackPanel);
         }
 
       
@@ -65,9 +65,20 @@ namespace Test
             FormDataGrid.Undo();
         }
 
+        private void TestClick(object sender,RoutedEventArgs e)
+        {
+            MessageBox.Show("Test");
+            FormDataGrid.RemoveIfPropertyEqual("Name", "An");
+        }
+
         private void Redo_Click(object sender, RoutedEventArgs e)
         {
             FormDataGrid.Redo();
+        }
+
+        private void AddCol_Click(object sender, RoutedEventArgs e)
+        {
+            FormDataGrid.BuildButtonColumn("Test", "Click vo", TestClick,50);
         }
     }
 }
