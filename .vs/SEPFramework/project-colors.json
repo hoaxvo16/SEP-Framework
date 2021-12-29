@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "369fa72d-dc5a-48ec-8c33-08c04e92462d": {
+      "ProjectGuid": "369fa72d-dc5a-48ec-8c33-08c04e92462d",
+      "DisplayName": "Test",
+      "ColorIndex": 0
+    },
+    "0fabd8d6-f264-461e-b2b3-2d88913168dc": {
+      "ProjectGuid": "0fabd8d6-f264-461e-b2b3-2d88913168dc",
+      "DisplayName": "SEPFramework",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}

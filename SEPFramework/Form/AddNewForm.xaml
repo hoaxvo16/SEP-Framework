@@ -1,18 +1,16 @@
-﻿<Window x:Class="Test.MainWindow"
+﻿<Window x:Class="SEPFramework.AddNewForm"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Test"
+        xmlns:local="clr-namespace:SEPFramework"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="900" FontSize="20">
-    <Grid>
-        <Grid Name="grid">
+        Title="AddNewForm" Height="450" Width="800">
+    <StackPanel Width="500">
+        <StackPanel x:Name="stackPanel">
 
-        </Grid>
-        <StackPanel Name="stackPanel">
-      
-       
         </StackPanel>
-    </Grid>
+        <Button  Margin="0 10 0 0" FontSize="16"  x:Name="Add" Click="Add_Click">Add</Button>
+    </StackPanel>
+   
 </Window>

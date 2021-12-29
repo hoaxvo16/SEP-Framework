@@ -32,5 +32,23 @@ namespace SEPFramework
         {
 
         }
+
+        public static Button BuildButton(string buttonContent,RoutedEventHandler clickEvent,int width)
+        {
+            var button = new Button();
+
+            button.Content = buttonContent;
+            button.Width = width;
+            button.Click += clickEvent;
+
+            return button;
+        }
+
+        public static StackPanel BuildStackPanel ()
+        {
+            var panel = new StackPanel();
+            panel.Orientation = Orientation.Horizontal;
+            return panel;
+        }
     }
 }

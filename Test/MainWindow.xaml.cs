@@ -29,6 +29,7 @@ namespace Test
             public string Name { get; set; }
 
             public DateTime Birthday { get; set; }
+            public string Address { get; set; }
         }
 
         public FormData<User> FormDataGrid = new FormData<User>();
@@ -38,13 +39,13 @@ namespace Test
             InitializeComponent();
             //Just init data;
             List<User> users = new List<User>();
-            users.Add(new User() { Id = 1, Name = "Hoa", Birthday = new DateTime(1971, 7, 23) });
-            users.Add(new User() { Id = 2, Name = "An", Birthday = new DateTime(1974, 1, 17) });
-            users.Add(new User() { Id = 3, Name = "Vi", Birthday = new DateTime(1993, 9, 21) });
-            users.Add(new User() { Id = 3, Name = "Tan", Birthday = new DateTime(1996, 6, 1) });
-            users.Add(new User() { Id = 3, Name = "Duy", Birthday = new DateTime(2001, 12, 13) });
+            users.Add(new User() { Id = 1, Name = "Hoa", Birthday = new DateTime(1971, 7, 23),Address="HCM" });
+            users.Add(new User() { Id = 2, Name = "An", Birthday = new DateTime(1974, 1, 17), Address = "DN" });
+            users.Add(new User() { Id = 3, Name = "Vi", Birthday = new DateTime(1993, 9, 21), Address = "Hue" });
+            users.Add(new User() { Id = 4, Name = "Tan", Birthday = new DateTime(1996, 6, 1), Address = "HN" });
+            users.Add(new User() { Id = 5, Name = "Duy", Birthday = new DateTime(2001, 12, 13), Address = "CM" });
       
-            FormDataGrid.BuildData(users).BuildAction("onColDelete",Confirm).Render(stackPanel);
+            FormDataGrid.BuildData(users).BuildAction("onCellDelete",Confirm).Render(stackPanel);
         }
 
       
@@ -60,22 +61,14 @@ namespace Test
             MessageBox.Show("ok");
         }
 
-        private void Undo_Click(object sender, RoutedEventArgs e)
-        {
-            FormDataGrid.Undo();
-        }
-
+     
         private void TestClick(object sender,RoutedEventArgs e)
         {
             MessageBox.Show("Test");
             FormDataGrid.RemoveIfPropertyEqual("Name", "An");
         }
 
-        private void Redo_Click(object sender, RoutedEventArgs e)
-        {
-            FormDataGrid.Redo();
-        }
-
+       
         private void AddCol_Click(object sender, RoutedEventArgs e)
         {
             FormDataGrid.BuildButtonColumn("Test", "Click vo", TestClick,50);
