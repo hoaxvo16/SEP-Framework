@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SEPFramework;
+using SEPFramework.Builder;
 
 namespace Test
 {
@@ -32,46 +33,48 @@ namespace Test
             public string Address { get; set; }
         }
 
-        public FormData<User> FormDataGrid = new FormData<User>();
-     
+        public DataGrid<User> DataGrid = new DataGrid<User>();
+
         public MainWindow()
         {
             InitializeComponent();
             //Just init data;
             List<User> users = new List<User>();
-            users.Add(new User() { Id = 1, Name = "Hoa", Birthday = new DateTime(1971, 7, 23),Address="HCM" });
+            users.Add(new User() { Id = 1, Name = "Hoa", Birthday = new DateTime(1971, 7, 23), Address = "HCM" });
             users.Add(new User() { Id = 2, Name = "An", Birthday = new DateTime(1974, 1, 17), Address = "DN" });
             users.Add(new User() { Id = 3, Name = "Vi", Birthday = new DateTime(1993, 9, 21), Address = "Hue" });
             users.Add(new User() { Id = 4, Name = "Tan", Birthday = new DateTime(1996, 6, 1), Address = "HN" });
             users.Add(new User() { Id = 5, Name = "Duy", Birthday = new DateTime(2001, 12, 13), Address = "CM" });
-      
-            FormDataGrid.BuildData(users).BuildAction("onCellDelete",Confirm).Render(stackPanel);
+            DataGridBuilder<User> builder = new DataGridBuilder<User>();
+            DataGrid = builder.BuildData(users).BuildActionButton().BuildTopPanel(stackPanel).BuildAction("onCellDelete", Confirm).GetDataGrid();
+            DataGrid.Render(stackPanel);
         }
 
-      
 
-        
+
+
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            FormDataGrid.RemoveAt(0);
+            DataGrid.RemoveAt(0);
         }
-        private void Confirm()
+        private void Confirm(object result)
         {
-            MessageBox.Show("ok");
+            User temp = (User)result;
+            MessageBox.Show(temp.Name);
         }
 
-     
-        private void TestClick(object sender,RoutedEventArgs e)
+
+        private void TestClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Test");
-            FormDataGrid.RemoveIfPropertyEqual("Name", "An");
+            DataGrid.RemoveIfPropertyEqual("Name", "An");
         }
 
-       
+
         private void AddCol_Click(object sender, RoutedEventArgs e)
         {
-            FormDataGrid.BuildButtonColumn("Test", "Click vo", TestClick,50);
+
         }
     }
 }

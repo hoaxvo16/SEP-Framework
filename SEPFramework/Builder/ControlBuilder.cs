@@ -50,5 +50,27 @@ namespace SEPFramework
             panel.Orientation = Orientation.Horizontal;
             return panel;
         }
+
+        public static TextBlock BuilldTextBlock(string textBlockContent,  int fontSize)
+        {
+
+            var textBlock = new TextBlock();
+            textBlock.Text = textBlockContent;
+            textBlock.FontSize = fontSize;
+            return textBlock;
+
+        }
+
+        public static TextBox BuilldTextBox(string textBoxName, string textBoxContent, int fontSize, TextChangedEventHandler onChange)
+        {
+
+            var textBox = new TextBox();
+            textBox.Text = textBoxContent;
+            textBox.Name = textBoxName;
+            textBox.FontSize = fontSize;
+            textBox.TextChanged += onChange;
+            return textBox;
+
+        }
     }
 }

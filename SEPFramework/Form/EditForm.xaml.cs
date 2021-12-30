@@ -46,15 +46,9 @@ namespace SEPFramework
 
         private void BuildTextBox(string textBoxName, string texBoxDefaultValue)
         {
-            var textBlock = new TextBlock();
-            textBlock.FontSize = 16;
-            textBlock.Margin = new Thickness(0, 10, 0, 0);
-            textBlock.Text = textBoxName;
-            var textBox = new TextBox();
-            textBox.FontSize = 16;
-            textBox.TextChanged += TextBox_TextChanged;
-            textBox.Name = textBoxName;
-            textBox.Text = texBoxDefaultValue;
+            TextBlock textBlock = ControlBuilder.BuilldTextBlock(textBoxName, 16);
+            textBlock.Margin = new Thickness(0, 20, 0, 0);
+            TextBox textBox = ControlBuilder.BuilldTextBox(textBoxName, texBoxDefaultValue, 16, TextBox_TextChanged);
             stackPanel.Children.Add(textBlock);
             stackPanel.Children.Add(textBox);
         }
