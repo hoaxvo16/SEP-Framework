@@ -58,10 +58,12 @@ namespace Test
         {
             DataGrid.RemoveAt(0);
         }
-        private void Confirm(object result)
+        private void Confirm(object[] result)
         {
-            User temp = (User)result;
+            User temp = (User)result[0];
             MessageBox.Show(temp.Name);
+            result[1] = true;
+            
         }
 
 

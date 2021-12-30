@@ -29,7 +29,7 @@ namespace SEPFramework
             UpdateHistory();
         }
 
-        public void AddAction(string actionName, Action<object> function)
+        public void AddAction(string actionName, Action<object[]> function)
         {
             this.actionStore.AddAction(actionName, function);
         }
@@ -92,9 +92,14 @@ namespace SEPFramework
 
         public void DeleteItemClick(object sender, RoutedEventArgs e)
         {
-            this.actionStore.ExecuteAction("onCellDelete", data[UIElement.SelectedIndex]);
-            RemoveAt(UIElement.SelectedIndex);
-            
+            var isAbort = false;
+            var parameters = new object[2]{data[UIElement.SelectedIndex],isAbort};
+            this.actionStore.ExecuteAction("onCellDelete", parameters);
+            if ((bool)parameters[1] == false)
+            {
+                RemoveAt(UIElement.SelectedIndex);
+
+            }
         }
 
         public void RedoClick(object sender, RoutedEventArgs e)

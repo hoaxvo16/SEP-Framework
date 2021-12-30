@@ -7,7 +7,7 @@ namespace SEPFramework
 {
     internal class ActionStore
     {
-        private Dictionary<string, Action<object>> actions = new Dictionary<string, Action<object>>();
+        private Dictionary<string, Action<object[]>> actions = new Dictionary<string, Action<object[]>>();
         private Dictionary<string,RoutedEventHandler> buttonActions = new Dictionary<string,RoutedEventHandler>();
 
         private List<string> acctionNames;
@@ -19,7 +19,7 @@ namespace SEPFramework
             acctionNames.Add("onCellEdit");
 
         }
-        public void AddAction(string actionName,Action<object> action)
+        public void AddAction(string actionName,Action<object[]> action)
         {
             if(this.acctionNames.Contains(actionName))
             this.actions.Add(actionName, action);
@@ -29,10 +29,11 @@ namespace SEPFramework
             }
         }
 
-        public void ExecuteAction(string actionName,object parameter)
+        public void ExecuteAction(string actionName,object[] parameter)
         {
             if (this.actions.ContainsKey(actionName))
             {
+             
                 this.actions[actionName](parameter);
             }
             else

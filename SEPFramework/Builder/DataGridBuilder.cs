@@ -22,7 +22,7 @@ namespace SEPFramework.Builder
         }
 
 
-        public DataGridBuilder<T> BuildAction(string actionName, Action<object> function)
+        public DataGridBuilder<T> BuildAction(string actionName, Action<object[]> function)
         {
             dataGrid.AddAction(actionName, function);
             return this;
