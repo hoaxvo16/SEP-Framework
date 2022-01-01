@@ -7,13 +7,12 @@ using System.Windows.Controls;
 
 namespace SEPFramework.Builder
 {
-    public class DataGridBuilder<T> : IDataGridBuilder
+    public class DataGridBuilder<T> : IDataGridBuilder<T>
     {
         private static DataGrid<T> dataGrid = new DataGrid<T>();
         private static StackPanel topPanel;
 
        
-
 
         public  DataGridBuilder<T> BuildData(List<T> data)
         {

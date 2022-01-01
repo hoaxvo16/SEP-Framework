@@ -138,7 +138,7 @@ namespace SEPFramework
         private void FinishAddNew(object newData)
         {
             var isAbort = false;
-            var parameters = new object[2] { data[UIElement.SelectedIndex], isAbort };
+            var parameters = new object[2] { newData, isAbort };
             this.actionStore.ExecuteAction("onAddNew", parameters);
             if (!(bool)parameters[1]) {
                 this.data.Add((T)newData);
