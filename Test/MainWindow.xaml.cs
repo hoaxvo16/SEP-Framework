@@ -46,7 +46,10 @@ namespace Test
             users.Add(new User() { Id = 4, Name = "Tan", Birthday = new DateTime(1996, 6, 1), Address = "HN" });
             users.Add(new User() { Id = 5, Name = "Duy", Birthday = new DateTime(2001, 12, 13), Address = "CM" });
             DataGridBuilder<User> builder = new DataGridBuilder<User>();
-            DataGrid = builder.BuildData(users).BuildActionButton().BuildTopPanel(stackPanel).BuildAction("onCellDelete", Confirm).GetDataGrid();
+            DataGrid = builder.BuildData(users).
+                BuildDefaultButton().BuildTopPanel(stackPanel).
+                BuildAction("onRowDelete", Confirm).
+                BuildAction("onRowEdit", OnRowEdit).GetDataGrid();
             DataGrid.Render(stackPanel);
         }
 
@@ -63,7 +66,12 @@ namespace Test
             User temp = (User)result[0];
             MessageBox.Show(temp.Name);
             result[1] = true;
-            
+        }
+
+        private void OnRowEdit(object[] result)
+        {
+            User temp = (User)result[0];
+            MessageBox.Show(temp.Name);
         }
 
 

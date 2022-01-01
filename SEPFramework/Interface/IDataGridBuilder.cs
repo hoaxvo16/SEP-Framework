@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SEPFramework.Interface
 {
-    internal interface IFormBuilder
+    internal interface IDataGridBuilder
     {
 
     }

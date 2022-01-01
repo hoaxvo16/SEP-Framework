@@ -7,7 +7,7 @@ using System.Windows.Controls;
 
 namespace SEPFramework.Builder
 {
-    public class DataGridBuilder<T> : IFormBuilder
+    public class DataGridBuilder<T> : IDataGridBuilder
     {
         private static DataGrid<T> dataGrid = new DataGrid<T>();
         private static StackPanel topPanel;
@@ -36,7 +36,7 @@ namespace SEPFramework.Builder
             return this;
         }
 
-        public DataGridBuilder<T>  BuildActionButton()
+        public DataGridBuilder<T>  BuildDefaultButton()
         {
             BuildButtonColumn("Delete", "Delete", dataGrid.DeleteItemClick, 100);
             BuildButtonColumn("Edit", "Edit", dataGrid.EditButtonClick, 100);

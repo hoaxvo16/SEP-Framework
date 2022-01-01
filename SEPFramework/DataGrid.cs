@@ -94,7 +94,7 @@ namespace SEPFramework
         {
             var isAbort = false;
             var parameters = new object[2]{data[UIElement.SelectedIndex],isAbort};
-            this.actionStore.ExecuteAction("onCellDelete", parameters);
+            this.actionStore.ExecuteAction("onRowDelete", parameters);
             if ((bool)parameters[1] == false)
             {
                 RemoveAt(UIElement.SelectedIndex);
@@ -121,6 +121,7 @@ namespace SEPFramework
             var selectedItem = data[UIElement.SelectedIndex];
 
             var editForm = new EditForm();
+        
             editForm.Init(selectedItem, FinishUpdate);
         }
 
@@ -134,16 +135,26 @@ namespace SEPFramework
         }
 
 
-        private void FinishAddNew(object data)
+        private void FinishAddNew(object newData)
         {
-
-            this.data.Add((T)data);
-            UpdateHistory();
+            var isAbort = false;
+            var parameters = new object[2] { data[UIElement.SelectedIndex], isAbort };
+            this.actionStore.ExecuteAction("onAddNew", parameters);
+            if (!(bool)parameters[1]) {
+                this.data.Add((T)newData);
+                UpdateHistory();
+            }
         }
 
         private void FinishUpdate(object result)
         {
-            data[UIElement.SelectedIndex] = (T)result;
+            var isAbort = false;
+            var parameters = new object[2] { data[UIElement.SelectedIndex], isAbort };
+            this.actionStore.ExecuteAction("onRowEdit", parameters);
+            if (!(bool)parameters[1])
+            {
+                data[UIElement.SelectedIndex] = (T)result;
+            }
             UpdateHistory();
         }
 

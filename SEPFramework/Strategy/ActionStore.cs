@@ -15,14 +15,15 @@ namespace SEPFramework
         public ActionStore()
         {
             acctionNames = new List<string>();
-            acctionNames.Add("onCellDelete");
-            acctionNames.Add("onCellEdit");
+            acctionNames.Add("onRowDelete");
+            acctionNames.Add("onRowEdit");
+            acctionNames.Add("onAddNew");
 
         }
         public void AddAction(string actionName,Action<object[]> action)
         {
             if(this.acctionNames.Contains(actionName))
-            this.actions.Add(actionName, action);
+                this.actions.Add(actionName, action);
             else
             {
                 throw new Exception($"Action {actionName} does not exit in FormData");
@@ -38,7 +39,7 @@ namespace SEPFramework
             }
             else
             {
-                throw new Exception($"Action {actionName} does not exit in FormData");
+               //do sth
             }
         }
 
