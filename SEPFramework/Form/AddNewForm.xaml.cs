@@ -35,8 +35,16 @@ namespace SEPFramework
             for (int i = 0; i < properties.Length; i++)
             {
                 string textBoxName = properties[i].ToString().Split(' ')[1];
-                
-                BuildTextBox(textBoxName);
+                var textBoxValue = properties[i].GetValue(a);
+                if (textBoxValue.GetType() == typeof(DateTime))
+                {
+                    BuilDatePicker(textBoxName);
+                }
+                else
+                {
+                    BuildTextBox(textBoxName);
+                }
+               
             }
          
             this.Show();
@@ -92,6 +100,30 @@ namespace SEPFramework
             finishAction(editData);
             this.Close();
            
+        }
+
+        private void BuilDatePicker(string datePickerName)
+        {
+
+            TextBlock textBlock = ControlBuilder.BuilldTextBlock(datePickerName, 16);
+            textBlock.Margin = new Thickness(0, 20, 0, 0);
+            var datePicker = ControlBuilder.BuildDatePicker(DateTime.Now, DatePicker_SelectedDateChanged);
+            datePicker.Name = datePickerName;
+            stackPanel.Children.Add(textBlock);
+            stackPanel.Children.Add(datePicker);
+        }
+
+        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var datePicker = (DatePicker)sender;
+            try
+            {
+                this.editData.GetType().GetProperty(datePicker.Name).SetValue(this.editData, datePicker.SelectedDate);
+            }
+            catch
+            {
+
+            }
         }
     }
 }

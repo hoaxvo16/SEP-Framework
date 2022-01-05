@@ -72,5 +72,15 @@ namespace SEPFramework
             return textBox;
 
         }
+
+        public static DatePicker BuildDatePicker(DateTime selectedDate, EventHandler<SelectionChangedEventArgs> onChange)
+        {
+            var datePicker = new DatePicker();
+            datePicker.SelectedDate = selectedDate;
+            datePicker.SelectedDateChanged += onChange;
+            return datePicker;
+        }
+
+      
     }
 }

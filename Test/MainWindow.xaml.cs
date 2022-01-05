@@ -31,6 +31,8 @@ namespace Test
 
             public DateTime Birthday { get; set; }
             public string Address { get; set; }
+
+            public double GPA { get; set; }
         }
 
         public DataGrid<User> DataGrid = new DataGrid<User>();
@@ -40,11 +42,11 @@ namespace Test
             InitializeComponent();
             //Just init data;
             List<User> users = new List<User>();
-            users.Add(new User() { Id = 1, Name = "Hoa", Birthday = new DateTime(1971, 7, 23), Address = "HCM" });
-            users.Add(new User() { Id = 2, Name = "An", Birthday = new DateTime(1974, 1, 17), Address = "DN" });
-            users.Add(new User() { Id = 3, Name = "Vi", Birthday = new DateTime(1993, 9, 21), Address = "Hue" });
-            users.Add(new User() { Id = 4, Name = "Tan", Birthday = new DateTime(1996, 6, 1), Address = "HN" });
-            users.Add(new User() { Id = 5, Name = "Duy", Birthday = new DateTime(2001, 12, 13), Address = "CM" });
+            users.Add(new User() { Id = 1, Name = "Hoa", Birthday = new DateTime(1971, 7, 23), Address = "HCM",GPA= 9.6 });
+            users.Add(new User() { Id = 2, Name = "An", Birthday = new DateTime(1974, 1, 17), Address = "DN",GPA=8.5 });
+            users.Add(new User() { Id = 3, Name = "Vi", Birthday = new DateTime(1993, 9, 21), Address = "Hue", GPA = 8.8 });
+            users.Add(new User() { Id = 4, Name = "Tan", Birthday = new DateTime(1996, 6, 1), Address = "HN", GPA = 9.5 });
+            users.Add(new User() { Id = 5, Name = "Duy", Birthday = new DateTime(2001, 12, 13), Address = "CM", GPA = 7.5 });
             DataGridBuilder<User> builder = new DataGridBuilder<User>();
             DataGrid = builder.BuildData(users).
                 BuildDefaultButton().BuildTopPanel(stackPanel).

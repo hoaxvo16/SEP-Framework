@@ -36,10 +36,17 @@ namespace SEPFramework
             for (int i = 0; i < properties.Length; i++)
             {
                 string textBoxName = properties[i].ToString().Split(' ')[1];
-                string textBoxValue = properties[i].GetValue(a).ToString();
-
-                BuildTextBox(textBoxName, textBoxValue);
+                var textBoxValue = properties[i].GetValue(a);
+                if (textBoxValue.GetType() == typeof(DateTime))
+                {
+                    BuilDatePicker(textBoxName,(DateTime)textBoxValue);
+                }
+                else
+                {
+                    BuildTextBox(textBoxName, textBoxValue.ToString());
+                }
             }
+           
 
             this.Show();
         }
@@ -54,38 +61,35 @@ namespace SEPFramework
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+            
         {
-            var txtBox = sender as TextBox;
-
-            string name = txtBox.Name;
-            var value = txtBox.Text;
-
-            var propertyValue = this.editData.GetType().GetProperty(name).GetValue(this.editData, null);
-
-            //Handle each type ....hmmmmm
-            if (propertyValue.GetType() == typeof(string))
+            try
             {
-                this.editData.GetType().GetProperty(name).SetValue(this.editData, value);
-            }
-            else
-            {
+                var txtBox = sender as TextBox;
 
-                if (propertyValue.GetType() == typeof(int))
+                string name = txtBox.Name;
+                var value = txtBox.Text;
+
+                var propertyValue = this.editData.GetType().GetProperty(name).GetValue(this.editData, null);
+
+                //Handle each type ....hmmmmm
+                if (propertyValue.GetType() == typeof(string))
+                {
+                    this.editData.GetType().GetProperty(name).SetValue(this.editData, value);
+                }
+                else if (propertyValue.GetType() == typeof(int))
                 {
                     this.editData.GetType().GetProperty(name).SetValue(this.editData, int.Parse(value));
-                }
 
-                if (propertyValue.GetType() == typeof(DateTime))
+                }
+                else
                 {
-                    try
-                    {
-                        this.editData.GetType().GetProperty(name).SetValue(this.editData, DateTime.Parse(value));
-                    }
-                    catch
-                    {
-
-                    }
+                    this.editData.GetType().GetProperty(name).SetValue(this.editData, Utility.ConvertToDouble(value));
                 }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
 
@@ -93,6 +97,30 @@ namespace SEPFramework
         {
             finishAction(editData);
             this.Close();
+        }
+
+        private void BuilDatePicker(string datePickerName,DateTime initDate)
+        {
+            
+            TextBlock textBlock = ControlBuilder.BuilldTextBlock(datePickerName, 16);
+            textBlock.Margin = new Thickness(0, 20, 0, 0);
+            var datePicker = ControlBuilder.BuildDatePicker(initDate, DatePicker_SelectedDateChanged);
+            datePicker.Name = datePickerName;
+            stackPanel.Children.Add(textBlock);
+            stackPanel.Children.Add(datePicker);
+        }
+
+        private  void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var datePicker = (DatePicker)sender;
+            try
+            {
+                this.editData.GetType().GetProperty(datePicker.Name).SetValue(this.editData, datePicker.SelectedDate);
+            }
+            catch
+            {
+
+            }
         }
     }
 }
