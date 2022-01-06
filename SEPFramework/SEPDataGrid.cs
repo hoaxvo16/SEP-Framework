@@ -1,4 +1,5 @@
 using SEPFramework.Interface;
+using SEPFramework.Memento;
 using SEPFramework.Observer;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,10 @@ namespace SEPFramework
         //Atributes
 
         protected DataGrid UIElement;
-
         protected ObserverDataSource<T> data;
+        protected ActionStore actionStore = new ActionStore();
+        protected CareTaker<T> careTaker = new CareTaker<T>();
 
-        private ActionStore actionStore = new ActionStore();
 
 
         //Getter, Setter
@@ -29,11 +30,10 @@ namespace SEPFramework
         }
         public void SetDataList(List<T> dataList)
         {
-            
             this.data = new ObserverDataSource<T>(dataList);
+            UpdateCareTaker();
             this.UIElement.ItemsSource = dataList;
             this.data.Subscribe(this);
-    
         }
 
         public void AddAction(string actionName, Action<object[]> function)
@@ -50,12 +50,8 @@ namespace SEPFramework
         public SEPDataGrid()
         {
             this.UIElement = new DataGrid();
-           
-           
             this.UIElement.IsReadOnly = true;
             this.UIElement.MouseDoubleClick += DataGridMouseDoubleClick;
-      
-
         }
 
         //Render
@@ -86,13 +82,6 @@ namespace SEPFramework
             addForm.Init(item, FinishAddNew);
         }
 
-        public void UndoClick(object sender, RoutedEventArgs e)
-        {
-          
-           
-
-        }
-
         public void DeleteItemClick(object sender, RoutedEventArgs e)
         {
             var isAbort = false;
@@ -101,13 +90,8 @@ namespace SEPFramework
             if ((bool)parameters[1] == false)
             {
                 this.data.RemoveData(data[UIElement.SelectedIndex]);
-
+                UpdateCareTaker();
             }
-        }
-
-        public void RedoClick(object sender, RoutedEventArgs e)
-        {
-           
         }
 
         public void EditButtonClick(object sender, RoutedEventArgs e)
@@ -129,7 +113,7 @@ namespace SEPFramework
             this.actionStore.ExecuteAction("onAddNew", parameters);
             if (!(bool)parameters[1]) {
                 this.data.AddNewData((T)newData);
-                
+                UpdateCareTaker();
             }
         }
 
@@ -141,15 +125,35 @@ namespace SEPFramework
             if (!(bool)parameters[1])
             {
                 this.data.UpdateData((T)result, UIElement.SelectedIndex);
-                //data[UIElement.SelectedIndex] = (T)result;
+                UpdateCareTaker();
             }
             
+        }
+
+        //Undo redo
+        public void UndoClick(object sender, RoutedEventArgs e)
+        {
+
+            var prev = this.careTaker.Undo();
+            if (prev != null)
+                this.data.SetDataSource(prev.GetSate());
+
+        }
+
+        public void RedoClick(object sender, RoutedEventArgs e)
+        {
+            var next = this.careTaker.Redo();
+            if (next != null)
+                this.data.SetDataSource(next.GetSate());
         }
 
         //Update history
 
 
-      
+        public void UpdateCareTaker()
+        {
+            this.careTaker.AddMemento(new Memento<T>(data.GetDataSource()));
+        }
 
 
 

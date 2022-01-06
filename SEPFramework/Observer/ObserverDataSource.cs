@@ -27,6 +27,11 @@ namespace SEPFramework.Observer
         {
             return dataSource.Count;
         }
+
+        public List<T> GetDataSource()
+        {
+            return this.dataSource;
+        }
         public void AddNewData(T data)
         {
             this.dataSource.Add(data);

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SEPFramework.Memento
 {
-    internal class Memento<T>
+    public class Memento<T>
     {
        private  List<T> state;
   

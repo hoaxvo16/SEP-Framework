@@ -5,7 +5,7 @@ using System.Windows;
 
 namespace SEPFramework
 {
-    internal class ActionStore
+    public class ActionStore
     {
         private Dictionary<string, Action<object[]>> actions = new Dictionary<string, Action<object[]>>();
         private Dictionary<string,RoutedEventHandler> buttonActions = new Dictionary<string,RoutedEventHandler>();

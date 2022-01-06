@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace SEPFramework
 {
-    internal class Utility
+    public class Utility
     {
         public static object CloneObject(object objSource)
         {

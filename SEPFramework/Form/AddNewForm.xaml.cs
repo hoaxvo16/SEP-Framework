@@ -27,7 +27,7 @@ namespace SEPFramework
             InitializeComponent();
         }
 
-        public void Init(object a,Action<object> finish)
+        public void Init(object a, Action<object> finish)
         {
             editData = Utility.CloneObject(a);
             finishAction = finish;
@@ -44,9 +44,9 @@ namespace SEPFramework
                 {
                     BuildTextBox(textBoxName);
                 }
-               
+
             }
-         
+
             this.Show();
         }
 
@@ -65,41 +65,27 @@ namespace SEPFramework
 
             string name = txtBox.Name;
             var value = txtBox.Text;
-         
+
             var propertyValue = this.editData.GetType().GetProperty(name).GetValue(this.editData, null);
             if (propertyValue.GetType() == typeof(string))
             {
                 this.editData.GetType().GetProperty(name).SetValue(this.editData, value);
             }
+            else if (propertyValue.GetType() == typeof(int))
+            {
+                this.editData.GetType().GetProperty(name).SetValue(this.editData, int.Parse(value));
+            }
             else
             {
-               
-                if (propertyValue.GetType()==typeof(int)) {
-                    this.editData.GetType().GetProperty(name).SetValue(this.editData, int.Parse(value));
-                }
-
-                if (propertyValue.GetType() == typeof(DateTime))
-                {
-                    try
-                    {
-                        this.editData.GetType().GetProperty(name).SetValue(this.editData, DateTime.Parse(value));
-                    }
-                    catch {
-                    
-                    }
-                }
+                this.editData.GetType().GetProperty(name).SetValue(this.editData, Utility.ConvertToDouble(value));
             }
-            
-           
-
-           
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             finishAction(editData);
             this.Close();
-           
+
         }
 
         private void BuilDatePicker(string datePickerName)

@@ -4,18 +4,17 @@ using System.Text;
 
 namespace SEPFramework.Memento
 {
-    internal class CareTaker<T>
+    public class CareTaker<T>
     {
-        private List<Memento<T>> history;
-        private int step = 0;
-        public void AddMemento(List<T> data)
+        private List<Memento<T>> history= new List<Memento<T>>();
+        private int step = -1;
+        public void AddMemento(Memento<T> memento)
         {
 
             step++;
-            var temp = new Memento<T>(data);
             try
             {
-                history.Add(temp);
+                history.Add(memento);
             }
             catch (Exception)
             {
@@ -25,24 +24,23 @@ namespace SEPFramework.Memento
 
         public Memento<T> Undo()
         {
-            if (step > 1)
+            if (step >= 1)
             {
                 step--;
+                return history[step];
             }
-
-         
-            return history[step];
+            return null;
            
         }
 
         public Memento<T> Redo()
         {
-            if (step < history.Count)
+            if (step < history.Count-1)
             {
                 step++;
+                return history[step];
             }
-            List<T> result = new List<T>();
-            return history[step];
+            return null;
         }
 
     }
