@@ -1,3 +1,5 @@
+using SEPFramework.Interface;
+using SEPFramework.Observer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,26 +9,31 @@ using System.Windows.Data;
 
 namespace SEPFramework
 {
-    public class DataGrid<T>
+    public class SEPDataGrid<T>:ISubscriber<T>
     {
 
         //Atributes
 
         protected DataGrid UIElement;
 
-        protected ObservableCollection<T> data;
-
-        private History<T> history;
+        protected ObserverDataSource<T> data;
 
         private ActionStore actionStore = new ActionStore();
 
+
         //Getter, Setter
 
+        public DataGrid GetUIElement()
+        {
+            return UIElement;
+        }
         public void SetDataList(List<T> dataList)
         {
-            this.data = new ObservableCollection<T>(dataList);
-            this.data.CollectionChanged += DataCollectionChanged;
-            UpdateHistory();
+            
+            this.data = new ObserverDataSource<T>(dataList);
+            this.UIElement.ItemsSource = dataList;
+            this.data.Subscribe(this);
+    
         }
 
         public void AddAction(string actionName, Action<object[]> function)
@@ -40,12 +47,14 @@ namespace SEPFramework
         }
 
         //Constructor
-        public DataGrid()
+        public SEPDataGrid()
         {
             this.UIElement = new DataGrid();
+           
+           
             this.UIElement.IsReadOnly = true;
             this.UIElement.MouseDoubleClick += DataGridMouseDoubleClick;
-            this.history = new History<T>();
+      
 
         }
 
@@ -53,7 +62,6 @@ namespace SEPFramework
         public void Render(Panel container)
         {
 
-            UIElement.ItemsSource = data;
             container.Children.Add(UIElement);
         }
 
@@ -80,13 +88,8 @@ namespace SEPFramework
 
         public void UndoClick(object sender, RoutedEventArgs e)
         {
-            var prev = history.Undo();
-            var temp = new ObservableCollection<T>(prev);
-            data.Clear();
-            foreach (var item in temp)
-            {
-                data.Add(item);
-            }
+          
+           
 
         }
 
@@ -97,28 +100,19 @@ namespace SEPFramework
             this.actionStore.ExecuteAction("onRowDelete", parameters);
             if ((bool)parameters[1] == false)
             {
-                RemoveAt(UIElement.SelectedIndex);
+                this.data.RemoveData(data[UIElement.SelectedIndex]);
 
             }
         }
 
         public void RedoClick(object sender, RoutedEventArgs e)
         {
-            var next = history.Redo();
-
-            var temp = new ObservableCollection<T>(next);
-            data.Clear();
-
-            foreach (var item in temp)
-            {
-                data.Add(item);
-            }
-
+           
         }
 
         public void EditButtonClick(object sender, RoutedEventArgs e)
         {
-            var selectedItem = data[UIElement.SelectedIndex];
+            var selectedItem = this.data[UIElement.SelectedIndex];
 
             var editForm = new EditForm();
         
@@ -126,14 +120,7 @@ namespace SEPFramework
         }
 
 
-        //Observerble and update data
-        private void DataCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-
-            UIElement.ItemsSource = data;
-
-        }
-
+  
 
         private void FinishAddNew(object newData)
         {
@@ -141,55 +128,40 @@ namespace SEPFramework
             var parameters = new object[2] { newData, isAbort };
             this.actionStore.ExecuteAction("onAddNew", parameters);
             if (!(bool)parameters[1]) {
-                this.data.Add((T)newData);
-                UpdateHistory();
+                this.data.AddNewData((T)newData);
+                
             }
         }
 
         private void FinishUpdate(object result)
         {
             var isAbort = false;
-            var parameters = new object[2] { data[UIElement.SelectedIndex], isAbort };
+            var parameters = new object[2] { result, isAbort };
             this.actionStore.ExecuteAction("onRowEdit", parameters);
             if (!(bool)parameters[1])
             {
-                data[UIElement.SelectedIndex] = (T)result;
+                this.data.UpdateData((T)result, UIElement.SelectedIndex);
+                //data[UIElement.SelectedIndex] = (T)result;
             }
-            UpdateHistory();
+            
         }
 
         //Update history
 
 
-        private void UpdateHistory()
-        {
-            this.history.Add(data);
-        }
-
+      
 
 
 
         //Public method for user
 
 
-        public void RemoveAt(int index)
-
-        {
-            try
-            {
-                data.RemoveAt(index);
-                UpdateHistory();
-            }
-            catch (Exception)
-            {
-
-            }
-        }
+      
 
         public void RemoveIfPropertyEqual(string propertyName, object value)
         {
             List<int> indexList = new List<int>();
-            for (int i = 0; i < data.Count; i++)
+            for (int i = 0; i < data.Count(); i++)
             {
                 var propertyValue = data[i].GetType().GetProperty(propertyName).GetValue(data[i], null);
                 if (propertyValue == value)
@@ -202,6 +174,12 @@ namespace SEPFramework
             {
                 data.RemoveAt(id);
             }
+        }
+
+        public void Update(List<T> data)
+        {
+            this.UIElement.ItemsSource = data;
+            this.UIElement.Items.Refresh();
         }
     }
 }

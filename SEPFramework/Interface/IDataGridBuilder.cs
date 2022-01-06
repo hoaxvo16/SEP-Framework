@@ -16,7 +16,7 @@ namespace SEPFramework.Interface
 
         public DataGridBuilder<T> BuildTopPanel(Panel container);
 
-        public DataGrid<T> GetDataGrid();
+        public SEPDataGrid<T> GetDataGrid();
 
     }
 }

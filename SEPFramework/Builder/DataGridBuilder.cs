@@ -9,7 +9,7 @@ namespace SEPFramework.Builder
 {
     public class DataGridBuilder<T> : IDataGridBuilder<T>
     {
-        private static DataGrid<T> dataGrid = new DataGrid<T>();
+        private static SEPDataGrid<T> dataGrid = new SEPDataGrid<T>();
         private static StackPanel topPanel;
 
        
@@ -56,7 +56,7 @@ namespace SEPFramework.Builder
             return this;
         }
 
-        public  DataGrid<T> GetDataGrid()
+        public  SEPDataGrid<T> GetDataGrid()
         {
             return dataGrid;
         }

@@ -35,7 +35,7 @@ namespace Test
             public double GPA { get; set; }
         }
 
-        public DataGrid<User> DataGrid = new DataGrid<User>();
+        public SEPDataGrid<User> DataGrid = new SEPDataGrid<User>();
 
         public MainWindow()
         {
@@ -61,13 +61,13 @@ namespace Test
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            DataGrid.RemoveAt(0);
+            
         }
         private void Confirm(object[] result)
         {
             User temp = (User)result[0];
             MessageBox.Show(temp.Name);
-            result[1] = true;
+            
         }
 
         private void OnRowEdit(object[] result)

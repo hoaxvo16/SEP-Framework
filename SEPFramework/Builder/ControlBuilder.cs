@@ -48,6 +48,7 @@ namespace SEPFramework
         {
             var panel = new StackPanel();
             panel.Orientation = Orientation.Horizontal;
+           
             return panel;
         }
 
