@@ -35,24 +35,37 @@ namespace Test
             public double GPA { get; set; }
         }
 
-        public SEPDataGrid<User> DataGrid = new SEPDataGrid<User>();
+        public class Product {
+            public int Id { get; set; }
+
+            public string Name { get; set; }
+
+           public int Price { get; set; }   
+        }
+
+        public SEPDataGrid<object> DataGrid = new SEPDataGrid<object>();
 
         public MainWindow()
         {
             InitializeComponent();
             //Just init data;
             List<User> users = new List<User>();
+            List<Product> products = new List<Product>();
+            List<object> data = new List<object>();
+            
+            data.Add(new Product { Price = 1000, Name = "Product1" });
+            data.Add(new Product { Price = 2000, Name = "Product2" });
+        
             users.Add(new User() { Id = 1, Name = "Hoa", Birthday = new DateTime(1971, 7, 23), Address = "HCM",GPA= 9.6 });
             users.Add(new User() { Id = 2, Name = "An", Birthday = new DateTime(1974, 1, 17), Address = "DN",GPA=8.5 });
             users.Add(new User() { Id = 3, Name = "Vi", Birthday = new DateTime(1993, 9, 21), Address = "Hue", GPA = 8.8 });
             users.Add(new User() { Id = 4, Name = "Tan", Birthday = new DateTime(1996, 6, 1), Address = "HN", GPA = 9.5 });
             users.Add(new User() { Id = 5, Name = "Duy", Birthday = new DateTime(2001, 12, 13), Address = "CM", GPA = 7.5 });
-            DataGridBuilder<User> builder = new DataGridBuilder<User>();
-            DataGrid = builder.BuildData(users).
-                BuildDefaultButton().BuildTopPanel(stackPanel).
-                BuildAction("onRowDelete", Confirm).
-                BuildAction("onRowEdit", OnRowEdit).GetDataGrid();
+            DataGridBuilder<object> builder = new DataGridBuilder<object>();
+            DataGrid = builder.BuildData(data).
+                BuildDefaultButton().BuildTopPanel(stackPanel).GetDataGrid();
             DataGrid.Render(stackPanel);
+            DataGrid.SetCellStyle((Style)this.FindResource("LabelTemplate"));
         }
 
 

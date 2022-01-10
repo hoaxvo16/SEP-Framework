@@ -15,7 +15,12 @@
       "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
       "DisplayName": "Miscellaneous Files",
       "ColorIndex": -1
+    },
+    "25038e20-4be2-4100-80ed-38d71ca5687e": {
+      "ProjectGuid": "25038e20-4be2-4100-80ed-38d71ca5687e",
+      "DisplayName": "WpfApp1",
+      "ColorIndex": 2
     }
   },
-  "NextColorIndex": 2
+  "NextColorIndex": 3
 }

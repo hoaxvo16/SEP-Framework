@@ -8,7 +8,7 @@ namespace SEPFramework
     public class ActionStore
     {
         private Dictionary<string, Action<object[]>> actions = new Dictionary<string, Action<object[]>>();
-        private Dictionary<string,RoutedEventHandler> buttonActions = new Dictionary<string,RoutedEventHandler>();
+     
 
         private List<string> acctionNames;
 
@@ -18,16 +18,14 @@ namespace SEPFramework
             acctionNames.Add("onRowDelete");
             acctionNames.Add("onRowEdit");
             acctionNames.Add("onAddNew");
+            acctionNames.Add("onUndo");
+            acctionNames.Add("onRedo");
 
         }
         public void AddAction(string actionName,Action<object[]> action)
         {
-            if(this.acctionNames.Contains(actionName))
+            if(!this.actions.ContainsKey(actionName))
                 this.actions.Add(actionName, action);
-            else
-            {
-                throw new Exception($"Action {actionName} does not exit in FormData");
-            }
         }
 
         public void ExecuteAction(string actionName,object[] parameter)
@@ -43,5 +41,6 @@ namespace SEPFramework
             }
         }
 
+  
     }
 }

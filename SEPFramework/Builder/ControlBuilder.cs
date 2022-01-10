@@ -9,16 +9,21 @@ namespace SEPFramework
 {
     internal class ControlBuilder
     {
-        public static DataGridTemplateColumn BuilDataGridColButton(string header,string buttonContent,RoutedEventHandler clickEvent,int width)
+        public static DataGridTemplateColumn BuilDataGridColButton(string header,string buttonContent,RoutedEventHandler clickEvent,Style buttonStyle)
         {
             DataGridTemplateColumn col = new DataGridTemplateColumn();
-            col.Width = width;
+           
+         
     
             col.Header = header;
             
             FrameworkElementFactory button = new FrameworkElementFactory(typeof(Button));
             button.SetValue(Button.ContentProperty, buttonContent);
             button.AddHandler(Button.ClickEvent, new RoutedEventHandler(clickEvent));
+            if(buttonStyle != null)
+            {
+                button.SetValue(Button.StyleProperty, buttonStyle);
+            }
             DataTemplate cellTemplate = new DataTemplate();
             cellTemplate.VisualTree = button;
             col.CellTemplate = cellTemplate;
@@ -28,17 +33,37 @@ namespace SEPFramework
 
 
 
-        public static void BuilDataGridColText()
+        public static DataGridTemplateColumn BuilDataGridColText(string header, string content, Style textStyle)
         {
+            DataGridTemplateColumn col = new DataGridTemplateColumn();
 
+        
+
+            col.Header = header;
+
+            FrameworkElementFactory textBlock = new FrameworkElementFactory(typeof(TextBlock));
+            textBlock.Text = content;
+            if (textStyle != null)
+            {
+                textBlock.SetValue(TextBlock.StyleProperty, textStyle);
+            }
+         
+            DataTemplate cellTemplate = new DataTemplate();
+            cellTemplate.VisualTree = textBlock;
+            col.CellTemplate = cellTemplate;
+
+            return col;
         }
 
-        public static Button BuildButton(string buttonContent,RoutedEventHandler clickEvent,int width)
+        public static Button BuildButton(string buttonContent,RoutedEventHandler clickEvent,Style buttonStyle)
         {
             var button = new Button();
 
             button.Content = buttonContent;
-            button.Width = width;
+            if(buttonStyle != null)
+            {
+                button.Style = buttonStyle;
+            }
             button.Click += clickEvent;
 
             return button;

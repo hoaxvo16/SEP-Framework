@@ -6,15 +6,24 @@ using System.Windows.Controls;
 
 namespace SEPFramework.Interface
 {
-    internal interface IDataGridBuilder<T>
+    public interface IDataGridBuilder<T>
     {
-        public DataGridBuilder<T> BuildData(List<T> data);
-        public DataGridBuilder<T> BuildAction(string actionName, Action<object[]> function);
-        public DataGridBuilder<T> BuildButtonColumn(string colHeader, string buttonContent, RoutedEventHandler clickEvent, int width);
+        public IDataGridBuilder<T> BuildData(List<T> data);
 
-        public DataGridBuilder<T> BuildDefaultButton();
+        public IDataGridBuilder<T> BuildAction(string actionName, Action<object[]> function);
 
-        public DataGridBuilder<T> BuildTopPanel(Panel container);
+        public IDataGridBuilder<T> BuildButtonColumn(string colHeader, string buttonContent, RoutedEventHandler clickEvent, Style buttonStyle=null);
+
+        public IDataGridBuilder<T> BuildDefaultButton(Style buttonStyle = null);
+
+        public IDataGridBuilder<T> BuildTopPanel(Panel container, Style panelStyle=null, Style buttonStyle=null);
+
+
+        public IDataGridBuilder<T> BuildCellStyle(Style style);
+
+
+        public IDataGridBuilder<T> BuildHeaderStyle(Style style);
+
 
         public SEPDataGrid<T> GetDataGrid();
 

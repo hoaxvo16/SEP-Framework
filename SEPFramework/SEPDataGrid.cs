@@ -16,7 +16,7 @@ namespace SEPFramework
         //Atributes
 
         protected DataGrid UIElement;
-        protected ObserverDataSource<T> data;
+        protected ObservableDataSource<T> data;
         protected ActionStore actionStore = new ActionStore();
         protected CareTaker<T> careTaker = new CareTaker<T>();
 
@@ -30,10 +30,11 @@ namespace SEPFramework
         }
         public void SetDataList(List<T> dataList)
         {
-            this.data = new ObserverDataSource<T>(dataList);
+            this.data = new ObservableDataSource<T>(dataList);
             UpdateCareTaker();
             this.UIElement.ItemsSource = dataList;
             this.data.Subscribe(this);
+           
         }
 
         public void AddAction(string actionName, Action<object[]> function)
@@ -57,8 +58,19 @@ namespace SEPFramework
         //Render
         public void Render(Panel container)
         {
-
             container.Children.Add(UIElement);
+        }
+
+        public void SetCellStyle(Style style)
+        {
+            this.UIElement.CellStyle = style;
+
+        }
+
+        public void SetHeaderStyle(Style style)
+        {
+            this.UIElement.ColumnHeaderStyle = style;
+
         }
 
 
@@ -69,9 +81,16 @@ namespace SEPFramework
 
         private void DataGridMouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            var selectedItem = data[UIElement.SelectedIndex];
-            var editForm = new EditForm();
-            editForm.Init(selectedItem, FinishUpdate);
+            try
+            {
+                var selectedItem = data[UIElement.SelectedIndex];
+                var editForm = new EditForm();
+                editForm.Init(selectedItem, FinishUpdate);
+            }
+            catch(Exception ex)
+            {
+
+            }
 
         }
 
@@ -106,7 +125,7 @@ namespace SEPFramework
 
   
 
-        private void FinishAddNew(object newData)
+        public virtual void FinishAddNew(object newData)
         {
             var isAbort = false;
             var parameters = new object[2] { newData, isAbort };
@@ -117,7 +136,7 @@ namespace SEPFramework
             }
         }
 
-        private void FinishUpdate(object result)
+        public virtual void FinishUpdate(object result)
         {
             var isAbort = false;
             var parameters = new object[2] { result, isAbort };
@@ -131,7 +150,7 @@ namespace SEPFramework
         }
 
         //Undo redo
-        public void UndoClick(object sender, RoutedEventArgs e)
+        public virtual void UndoClick(object sender, RoutedEventArgs e)
         {
 
             var prev = this.careTaker.Undo();
@@ -140,7 +159,7 @@ namespace SEPFramework
 
         }
 
-        public void RedoClick(object sender, RoutedEventArgs e)
+        public virtual void RedoClick(object sender, RoutedEventArgs e)
         {
             var next = this.careTaker.Redo();
             if (next != null)
@@ -158,7 +177,6 @@ namespace SEPFramework
 
 
         //Public method for user
-
 
       
 

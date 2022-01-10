@@ -6,13 +6,25 @@
         xmlns:local="clr-namespace:Test"
         mc:Ignorable="d"
         Title="MainWindow" Height="650" Width="900" FontSize="20">
+    <Window.Resources>
+        <Style x:Key="LabelTemplate" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Foreground" Value="#FFE75959" />
+            <Setter Property="FontFamily" Value="Calibri" />
+        </Style>
+        <Style x:Key="StackPanelTemplate" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#FFE75959" />
+         
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid Name="grid">
 
         </Grid>
+
         <StackPanel Name="stackPanel">
-      
-       
+
+
         </StackPanel>
+
     </Grid>
 </Window>

@@ -14,40 +14,42 @@ namespace SEPFramework.Builder
 
        
 
-        public  DataGridBuilder<T> BuildData(List<T> data)
+        public  IDataGridBuilder<T> BuildData(List<T> data)
         {
             dataGrid.SetDataList(data);
+          
             return this;
         }
 
 
-        public DataGridBuilder<T> BuildAction(string actionName, Action<object[]> function)
+        public IDataGridBuilder<T> BuildAction(string actionName, Action<object[]> function)
         {
             dataGrid.AddAction(actionName, function);
             return this;
         }
 
-        public DataGridBuilder<T> BuildButtonColumn(string colHeader, string buttonContent, RoutedEventHandler clickEvent, int width)
+        public IDataGridBuilder<T> BuildButtonColumn(string colHeader, string buttonContent, RoutedEventHandler clickEvent, Style buttonStyle=null)
         {
 
-            DataGridTemplateColumn col = ControlBuilder.BuilDataGridColButton(colHeader, buttonContent, clickEvent, width);
+            DataGridTemplateColumn col = ControlBuilder.BuilDataGridColButton(colHeader, buttonContent, clickEvent,buttonStyle);
             dataGrid.AddColumn(col);
+           
             return this;
         }
 
-        public DataGridBuilder<T>  BuildDefaultButton()
+        public IDataGridBuilder<T>  BuildDefaultButton(Style buttonStyle)
         {
-            BuildButtonColumn("Delete", "Delete", dataGrid.DeleteItemClick, 100);
-            BuildButtonColumn("Edit", "Edit", dataGrid.EditButtonClick, 100);
+            BuildButtonColumn("Delete", "Delete", dataGrid.DeleteItemClick, buttonStyle);
+            BuildButtonColumn("Edit", "Edit", dataGrid.EditButtonClick, buttonStyle);
             return this;
         }
 
-        public DataGridBuilder<T>  BuildTopPanel(Panel container)
+        public IDataGridBuilder<T>  BuildTopPanel(Panel container,Style panelStyle, Style buttonStyle)
         {
             var panel = ControlBuilder.BuildStackPanel();
-            var addButton = ControlBuilder.BuildButton("Add new", dataGrid.AddNewButtonClick, 100);
-            var undoButton = ControlBuilder.BuildButton("Undo", dataGrid.UndoClick, 100);
-            var redoButton = ControlBuilder.BuildButton("Redo", dataGrid.RedoClick, 100);
+            var addButton = ControlBuilder.BuildButton("Add new", dataGrid.AddNewButtonClick, buttonStyle);
+            var undoButton = ControlBuilder.BuildButton("Undo", dataGrid.UndoClick, buttonStyle);
+            var redoButton = ControlBuilder.BuildButton("Redo", dataGrid.RedoClick, buttonStyle);
             panel.Children.Add(addButton);
             panel.Children.Add(undoButton);
             panel.Children.Add(redoButton);
@@ -56,9 +58,21 @@ namespace SEPFramework.Builder
             return this;
         }
 
-        public  SEPDataGrid<T> GetDataGrid()
+        public SEPDataGrid<T> GetDataGrid()
         {
             return dataGrid;
+        }
+
+        public IDataGridBuilder<T> BuildCellStyle(Style style)
+        {
+            dataGrid.SetCellStyle(style);
+            return this;
+        }
+
+        public IDataGridBuilder<T> BuildHeaderStyle(Style style)
+        {
+            dataGrid.SetHeaderStyle(style);
+            return this;
         }
     }
 }

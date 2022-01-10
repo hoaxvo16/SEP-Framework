@@ -5,14 +5,14 @@ using SEPFramework.Interface;
 
 namespace SEPFramework.Observer
 {
-    public class ObserverDataSource<T>
+    public class ObservableDataSource<T>:IObservableDataSource<T>
     {
 
         private List<ISubscriber<T>> subscribers = new List<ISubscriber<T>>();
 
         private List<T> dataSource;
 
-        public ObserverDataSource(List<T> source)
+        public ObservableDataSource(List<T> source)
         {
             this.dataSource = source;
         }
@@ -48,6 +48,11 @@ namespace SEPFramework.Observer
             this.subscribers.Add(subscriber);
         }
 
+        public void Unsubscribe(ISubscriber<T> subscriber)
+        {
+            this.subscribers.Remove(subscriber);
+        }
+
         public void UpdateData(T newData, int index)
         {
             this.dataSource[index] = newData;
@@ -66,7 +71,7 @@ namespace SEPFramework.Observer
         }
 
 
-        private void Notify()
+        public void Notify()
         {
             foreach (var subscriber in this.subscribers)
             {
