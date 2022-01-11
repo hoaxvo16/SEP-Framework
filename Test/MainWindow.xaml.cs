@@ -41,6 +41,8 @@ namespace Test
         public MainWindow()
         {
             InitializeComponent();
+            Login frm = new Login();
+            frm.Show();
             //Just init data;
             
             List<User> users = new List<User>();

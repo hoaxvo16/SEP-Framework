@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using SEPFramework.Factory;
 
 namespace SEPFramework.Membership
 {
@@ -27,6 +19,9 @@ namespace SEPFramework.Membership
             if (!AllowLogin())
                 return;
             //Xử lý dữ liệu đăng nhập
+            LogInHandler logInHandler = LogInFactory.getType("Normal");
+            logInHandler.Login(this);
+            
         }
 
         private bool AllowLogin()
@@ -56,6 +51,16 @@ namespace SEPFramework.Membership
         {
             Register frm = new Register();
             frm.Show();
+        }
+
+        public string UserName
+        {
+            get { return txtUserName.Text; }
+        }
+
+        public string Password
+        {
+            get { return txtPassword.Password; }
         }
     }
 }
