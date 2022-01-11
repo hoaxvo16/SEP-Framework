@@ -21,6 +21,10 @@ namespace SEPFramework.Membership
             //Xử lý dữ liệu đăng nhập
             LogInHandler logInHandler = LogInFactory.getType("Normal");
             logInHandler.Login(this);
+            if (logInHandler.IsLogin)
+            {
+                // Xử lý khi đã đăng nhập thành công
+            }
             
         }
 

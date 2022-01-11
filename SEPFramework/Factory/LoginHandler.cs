@@ -10,8 +10,29 @@ namespace SEPFramework.Factory
     public abstract class LogInHandler
     {
         public abstract void Login(Login login);
-        public abstract void LoadData();
+        public abstract object LoadData();
+
+        public class UserInfo
+        {
+            public string UserName { get; set; }
+            public string PassWord { get; set; }
+
+            // public object Facebok, Google, ..
+        }
+
+        protected bool isLogIn = false;
+        public bool IsLogin
+        {
+            get { return this.isLogIn; }
+        }
+
+        public void Logout()
+        {
+            this.isLogIn = false;
+        }
     }
+
+    
 
     public class LogInFactory
     {
@@ -33,31 +54,37 @@ namespace SEPFramework.Factory
     {
         public NormalLogin() { }
 
+
+
         public override void Login(Login login)
         {
             var userName = login.UserName;
             var password = login.Password;
-            LoadData();
+            var data = LoadData();
+            List<UserInfo> list = (List<UserInfo>)data;
+            foreach (var item in list)
+            {
+                if (item != null && item.UserName == userName && item.PassWord == password)
+                {
+                    isLogIn = true;
+                    return;
+                }
+            }
+            isLogIn = false;
         }
 
-        public override void LoadData()
+        public override object LoadData()
         {
 
             string path = AppDomain.CurrentDomain.BaseDirectory + "data.xml";
             XDocument xDocument = XDocument.Load(path);
 
-            var data = xDocument.Descendants("Account").Where(t => Int32.Parse(t.Attribute("Id").Value) > 0).
-                            Select(o => new
+            return xDocument.Descendants("Account").
+                            Select(o => new UserInfo
                             {
-                                id = o.Attribute("Id").Value,
-                                username = o.Element("UserName").Value,
-                                password = o.Element("PassWord").Value
+                                UserName = o.Element("UserName").Value,
+                                PassWord = o.Element("PassWord").Value
                             }).ToList();
-
-            foreach (var item in data)
-            {
-                Console.WriteLine(item);
-            }
 
         }
     }
@@ -68,7 +95,7 @@ namespace SEPFramework.Factory
         {
             throw new NotImplementedException();
         }
-        public override void LoadData()
+        public override object LoadData()
         {
             throw new NotImplementedException();
         }
@@ -80,7 +107,7 @@ namespace SEPFramework.Factory
         {
             throw new NotImplementedException();
         }
-        public override void LoadData()
+        public override object LoadData()
         {
             throw new NotImplementedException();
         }
@@ -92,38 +119,10 @@ namespace SEPFramework.Factory
         {
             throw new NotImplementedException();
         }
-        public override void LoadData()
+        public override object LoadData()
         {
             throw new NotImplementedException();
         }
     }
 
-    //abstract class Creator
-    //{
-    //    public abstract LogInHandler FactoryMethod();
-    //}
-
-    //class NormalLoginCreator : Creator
-    //{
-    //    public override LogInHandler FactoryMethod()
-    //    {
-    //        return new NormalLogin();
-    //    }
-    //}
-
-    //class FacebookLoginCreator : Creator
-    //{
-    //    public override LogInHandler FactoryMethod()
-    //    {
-    //        return new FacebookLogin();
-    //    }
-    //}
-
-    //class GoogleLoginCreator : Creator
-    //{
-    //    public override LogInHandler FactoryMethod()
-    //    {
-    //        return new GoogleLogin();
-    //    }
-    //}
 }

@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SEPFramework.Factory;
 
 namespace SEPFramework.Membership
 {
@@ -27,7 +28,18 @@ namespace SEPFramework.Membership
             {
                 return;
             }
-            MessageBox.Show("Dang ký thành công");
+            //Xử lý dữ liệu đăng nhập
+            RegisterHandler logInHandler = SignUpFactory.getType("Normal");
+            if (logInHandler.Register(this))
+            {
+                MessageBox.Show("Dang ký thành công");
+            }
+            else
+            {
+                // Do sth
+            }
+            
+            
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -68,6 +80,21 @@ namespace SEPFramework.Membership
         {
             this.Close();
 
+        }
+
+        public string UserName
+        {
+            get { return txtUserName.Text; }
+        }
+
+        public string Password
+        {
+            get { return txtPassword.Password; }
+        }
+
+        public string ConFirmPassword
+        {
+            get { return txtConFirmPassword.Password;}
         }
     }
 }
