@@ -41,13 +41,13 @@ namespace Test
         public MainWindow()
         {
             InitializeComponent();
-            //Login frm = new Login();
-            //frm.Show();
+            Login frm = new Login();
+            frm.Show();
 
-            Register register = new Register();
-            register.Show();
+            //Register register = new Register();
+            //register.Show();
             //Just init data;
-            
+
             List<User> users = new List<User>();
             users.Add(new User() { Id = 1, Name = "Hoa", Birthday = new DateTime(1971, 7, 23), Address = "HCM",GPA= 9.6 });
             users.Add(new User() { Id = 2, Name = "An", Birthday = new DateTime(1974, 1, 17), Address = "DN",GPA=8.5 });

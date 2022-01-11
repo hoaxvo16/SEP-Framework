@@ -57,6 +57,8 @@ namespace SEPFramework.Membership
             frm.Show();
         }
 
+
+
         public string UserName
         {
             get { return txtUserName.Text; }
@@ -69,8 +71,7 @@ namespace SEPFramework.Membership
 
         private void lblForgotPassword_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            ForgotPassword frm = new ForgotPassword();
-            frm.Show();
+
         }
     }
 }

@@ -36,7 +36,7 @@ namespace SEPFramework.Membership
             }
             else
             {
-                // Do sth
+                MessageBox.Show("Dang ký hất bại");
             }
             
             
@@ -82,6 +82,10 @@ namespace SEPFramework.Membership
 
         }
 
+        public string Email
+        {
+            get { return txtEmail.Text; }
+        }
         public string UserName
         {
             get { return txtUserName.Text; }
