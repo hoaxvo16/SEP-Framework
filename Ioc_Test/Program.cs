@@ -12,9 +12,22 @@ namespace IoC_Test
         static void Main(string[] args)
         {
             var container = new IoCContainer();
-            container.RegisterType<ICar, Ford>();
-            var driver = container.Resolve<Driver>();
-            driver.RunCar();
+            //container.RegisterType<ICar, BMW>();
+            //container.RegisterType<ICar, Audi>();
+
+            //var driver = container.Resolve<Driver>();
+            //driver.RunCar();
+            //driver.RunCar();
+
+            ICar audi = new Audi();
+            container.RegisterInstance<ICar>(audi);
+
+            Driver driver1 = container.Resolve<Driver>();
+            driver1.RunCar();
+            driver1.RunCar();
+
+            Driver driver2 = container.Resolve<Driver>();
+            driver2.RunCar();
         }
 
         public interface ICar

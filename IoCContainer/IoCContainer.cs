@@ -11,21 +11,17 @@ namespace IoC
 
         public void RegisterType<TInterface, TImplement>() where TImplement : TInterface
         {
-            if (regs.ContainsKey(typeof(TInterface)))
-            {
-                regs[typeof(TInterface)] = () => Resolve<TImplement>();
-            }
-            else
-            {
-                regs.Add(typeof(TInterface), () => Resolve<TImplement>());
-            }
+            regs[typeof(TInterface)] = () => Resolve<TImplement>();
         }
 
         public T Resolve<T>() => (T)GetInstance(typeof(T));
-        
+
         private object GetInstance(Type type)
         {
-            if (regs.TryGetValue(type, out Func<object> fac)) return fac();
+            if (regs.TryGetValue(type, value: out Func<object> func))
+            {
+                return func();
+            }
             else if (!type.IsAbstract) return CreateInstance(type);
             throw new InvalidOperationException("No registration for " + type);
         }
@@ -38,6 +34,9 @@ namespace IoC
             return Activator.CreateInstance(implementationType, dependencies);
         }
 
-
+        public void RegisterInstance<TInterface>(TInterface instance)
+        {
+            regs[typeof(TInterface)] = () => instance;
+        }
     }
 }
