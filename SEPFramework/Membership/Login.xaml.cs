@@ -62,5 +62,11 @@ namespace SEPFramework.Membership
         {
             get { return txtPassword.Password; }
         }
+
+        private void lblForgotPassword_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ForgotPassword frm = new ForgotPassword();
+            frm.Show();
+        }
     }
 }
