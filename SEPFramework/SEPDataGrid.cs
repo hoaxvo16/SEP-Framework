@@ -18,7 +18,7 @@ namespace SEPFramework
         protected DataGrid UIElement;
         protected ObservableDataSource<T> data;
         protected ActionStore actionStore = new ActionStore();
-        protected CareTaker<T> careTaker = new CareTaker<T>();
+
 
 
 
@@ -31,7 +31,6 @@ namespace SEPFramework
         public void SetDataList(List<T> dataList)
         {
             this.data = new ObservableDataSource<T>(dataList);
-            UpdateCareTaker();
             this.UIElement.ItemsSource = dataList;
             this.data.Subscribe(this);
            
@@ -109,7 +108,7 @@ namespace SEPFramework
             if ((bool)parameters[1] == false)
             {
                 this.data.RemoveData(data[UIElement.SelectedIndex]);
-                UpdateCareTaker();
+           
             }
         }
 
@@ -132,7 +131,7 @@ namespace SEPFramework
             this.actionStore.ExecuteAction("onAddNew", parameters);
             if (!(bool)parameters[1]) {
                 this.data.AddNewData((T)newData);
-                UpdateCareTaker();
+               
             }
         }
 
@@ -144,7 +143,7 @@ namespace SEPFramework
             if (!(bool)parameters[1])
             {
                 this.data.UpdateData((T)result, UIElement.SelectedIndex);
-                UpdateCareTaker();
+              
             }
             
         }
@@ -152,27 +151,17 @@ namespace SEPFramework
         //Undo redo
         public virtual void UndoClick(object sender, RoutedEventArgs e)
         {
-
-            var prev = this.careTaker.Undo();
-            if (prev != null)
-                this.data.SetDataSource(prev.GetSate());
+            this.data.Undo();
+            
 
         }
 
         public virtual void RedoClick(object sender, RoutedEventArgs e)
         {
-            var next = this.careTaker.Redo();
-            if (next != null)
-                this.data.SetDataSource(next.GetSate());
+            this.data.Redo();
         }
 
         //Update history
-
-
-        public void UpdateCareTaker()
-        {
-            this.careTaker.AddMemento(new Memento<T>(data.GetDataSource()));
-        }
 
 
 
@@ -203,5 +192,7 @@ namespace SEPFramework
             this.UIElement.ItemsSource = data;
             this.UIElement.Items.Refresh();
         }
+
+       
     }
 }

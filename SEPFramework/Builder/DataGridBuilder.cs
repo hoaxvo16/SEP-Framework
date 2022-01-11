@@ -9,10 +9,7 @@ namespace SEPFramework.Builder
 {
     public class DataGridBuilder<T> : IDataGridBuilder<T>
     {
-        private static SEPDataGrid<T> dataGrid = new SEPDataGrid<T>();
-        private static StackPanel topPanel;
-
-       
+        private static SEPDataGrid<T> dataGrid = new SEPDataGrid<T>(); 
 
         public  IDataGridBuilder<T> BuildData(List<T> data)
         {
@@ -53,8 +50,7 @@ namespace SEPFramework.Builder
             panel.Children.Add(addButton);
             panel.Children.Add(undoButton);
             panel.Children.Add(redoButton);
-            topPanel = panel;
-            container.Children.Add(topPanel);
+            container.Children.Add(panel);
             return this;
         }
 

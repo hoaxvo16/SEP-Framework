@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using SEPFramework.Interface;
+using SEPFramework.Memento;
 
 namespace SEPFramework.Observer
 {
@@ -12,9 +13,12 @@ namespace SEPFramework.Observer
 
         private List<T> dataSource;
 
+        private CareTaker<T> careTaker = new CareTaker<T>();
+
         public ObservableDataSource(List<T> source)
         {
             this.dataSource = source;
+            this.UpdateCareTaker();
         }
 
 
@@ -28,18 +32,10 @@ namespace SEPFramework.Observer
             return dataSource.Count;
         }
 
-        public List<T> GetDataSource()
-        {
-            return this.dataSource;
-        }
         public void AddNewData(T data)
         {
             this.dataSource.Add(data);
-            Notify();
-        }
-        public void SetDataSource(List<T> data)
-        {
-            this.dataSource=data;
+            this.UpdateCareTaker();
             Notify();
         }
 
@@ -56,17 +52,20 @@ namespace SEPFramework.Observer
         public void UpdateData(T newData, int index)
         {
             this.dataSource[index] = newData;
+            this.UpdateCareTaker();
             Notify();
         }
 
         public void RemoveData(T data)
         {
             this.dataSource.Remove(data);
+            this.UpdateCareTaker();
             Notify();
         }
         public void RemoveAt(int index)
         {
             this.dataSource.RemoveAt(index);
+            this.UpdateCareTaker();
             Notify();
         }
 
@@ -77,6 +76,32 @@ namespace SEPFramework.Observer
             {
                 subscriber.Update(this.dataSource);
             }
+        }
+
+        public void Undo()
+        {
+            var prev = this.careTaker.Undo();
+            if (prev != null)
+            {
+                this.dataSource = prev.GetSate();
+                this.Notify();
+            }
+             
+        }
+
+        public void Redo()
+        {
+            var next = this.careTaker.Redo();
+            if (next != null)
+            {
+                this.dataSource = next.GetSate();
+                this.Notify();
+            }
+        }
+
+        private void UpdateCareTaker()
+        {
+            this.careTaker.AddMemento(new Memento<T>(this.dataSource));
         }
     }
 }
