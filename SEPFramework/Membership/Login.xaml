@@ -38,7 +38,7 @@
                 </Style>
             </Label.Style>
         </Label>
-        <Label Grid.Row="3" Grid.Column="3" Content="Quên mật khẩu" Margin="4" TextElement.FontStyle="Italic" Foreground="Blue">
+        <Label x:Name="lblForgotPassword" Grid.Row="3" Grid.Column="3" Content="Quên mật khẩu" Margin="4" TextElement.FontStyle="Italic" Foreground="Blue" PreviewMouseDown="lblForgotPassword_PreviewMouseDown">
             <Label.Style>
                 <Style TargetType="Label">
                     <Style.Triggers>
