@@ -43,7 +43,12 @@ namespace Test
            public int Price { get; set; }   
         }
 
-        public SEPDataGrid<object> DataGrid = new SEPDataGrid<object>();
+        public class InheritDataGrid<User>: SEPDataGrid<User>
+        {
+             
+        }
+
+        public InheritDataGrid<User> dataGrid = new InheritDataGrid<User>();
 
         public MainWindow()
         {
@@ -61,11 +66,13 @@ namespace Test
             users.Add(new User() { Id = 3, Name = "Vi", Birthday = new DateTime(1993, 9, 21), Address = "Hue", GPA = 8.8 });
             users.Add(new User() { Id = 4, Name = "Tan", Birthday = new DateTime(1996, 6, 1), Address = "HN", GPA = 9.5 });
             users.Add(new User() { Id = 5, Name = "Duy", Birthday = new DateTime(2001, 12, 13), Address = "CM", GPA = 7.5 });
-            DataGridBuilder<object> builder = new DataGridBuilder<object>();
-            DataGrid = builder.BuildData(data).
-                BuildDefaultButton().BuildTopPanel(stackPanel).GetDataGrid();
-            DataGrid.Render(stackPanel);
-            DataGrid.SetCellStyle((Style)this.FindResource("LabelTemplate"));
+            DataGridBuilder<User> builder = new DataGridBuilder<User>();
+
+            builder.BuildFor(dataGrid).BuildData(users).BuildTopPanel(stackPanel).BuildCellStyle((Style)this.FindResource("LabelTemplate"));
+          
+           
+            dataGrid.Render(stackPanel);
+           
         }
 
 
@@ -93,7 +100,7 @@ namespace Test
         private void TestClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Test");
-            DataGrid.RemoveIfPropertyEqual("Name", "An");
+            dataGrid.RemoveIfPropertyEqual("Name", "An");
         }
 
 

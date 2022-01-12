@@ -10,7 +10,7 @@ using System.Windows.Data;
 
 namespace SEPFramework
 {
-    public class SEPDataGrid<T>:ISubscriber<T>
+    public abstract class SEPDataGrid<T>:ISubscriber<T>
     {
 
         //Atributes

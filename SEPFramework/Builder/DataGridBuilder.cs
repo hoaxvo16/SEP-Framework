@@ -7,11 +7,18 @@ using System.Windows.Controls;
 
 namespace SEPFramework.Builder
 {
-    public class DataGridBuilder<T> : IDataGridBuilder<T>
+    public class DataGridBuilder<T> : IDataBuilder<T>, IStyleBuilder<T>,IActionBuilder<T>,IControlBuilder<T>
     {
-        private static SEPDataGrid<T> dataGrid = new SEPDataGrid<T>(); 
+        private  SEPDataGrid<T> dataGrid;
 
-        public  IDataGridBuilder<T> BuildData(List<T> data)
+        public DataGridBuilder<T> BuildFor(SEPDataGrid<T> input)
+        {
+            dataGrid = input;
+
+            return this;
+        }
+
+        public  DataGridBuilder<T> BuildData(List<T> data)
         {
             dataGrid.SetDataList(data);
           
@@ -19,13 +26,13 @@ namespace SEPFramework.Builder
         }
 
 
-        public IDataGridBuilder<T> BuildAction(string actionName, Action<object[]> function)
+        public DataGridBuilder<T> BuildAction(string actionName, Action<object[]> function)
         {
             dataGrid.AddAction(actionName, function);
             return this;
         }
 
-        public IDataGridBuilder<T> BuildButtonColumn(string colHeader, string buttonContent, RoutedEventHandler clickEvent, Style buttonStyle=null)
+        public DataGridBuilder<T> BuildButtonColumn(string colHeader, string buttonContent, RoutedEventHandler clickEvent, Style buttonStyle=null)
         {
 
             DataGridTemplateColumn col = ControlBuilder.BuilDataGridColButton(colHeader, buttonContent, clickEvent,buttonStyle);
@@ -34,14 +41,14 @@ namespace SEPFramework.Builder
             return this;
         }
 
-        public IDataGridBuilder<T>  BuildDefaultButton(Style buttonStyle)
+        public DataGridBuilder<T> BuildDefaultButton(Style buttonStyle)
         {
             BuildButtonColumn("Delete", "Delete", dataGrid.DeleteItemClick, buttonStyle);
             BuildButtonColumn("Edit", "Edit", dataGrid.EditButtonClick, buttonStyle);
             return this;
         }
 
-        public IDataGridBuilder<T>  BuildTopPanel(Panel container,Style panelStyle, Style buttonStyle)
+        public DataGridBuilder<T> BuildTopPanel(Panel container,Style panelStyl=null, Style buttonStyle=null)
         {
             var panel = ControlBuilder.BuildStackPanel();
             var addButton = ControlBuilder.BuildButton("Add new", dataGrid.AddNewButtonClick, buttonStyle);
@@ -59,16 +66,18 @@ namespace SEPFramework.Builder
             return dataGrid;
         }
 
-        public IDataGridBuilder<T> BuildCellStyle(Style style)
+        public DataGridBuilder<T> BuildCellStyle(Style style)
         {
             dataGrid.SetCellStyle(style);
             return this;
         }
 
-        public IDataGridBuilder<T> BuildHeaderStyle(Style style)
+        public DataGridBuilder<T> BuildHeaderStyle(Style style)
         {
             dataGrid.SetHeaderStyle(style);
             return this;
         }
+
+   
     }
 }
