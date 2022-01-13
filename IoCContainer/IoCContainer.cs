@@ -1,42 +1,61 @@
-﻿using System;
+﻿using IoCContainer.Strategy;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace IoC
 {
-    public class IoCContainer : IContainer
+    public sealed class MyContainer
     {
-        private readonly Dictionary<Type, Func<object>> regs = new Dictionary<Type, Func<object>>();
+        private readonly Dictionary<Type, IResolveStrategy> _registrations;
+        private readonly Dictionary<Type, object> _singletonRegistrations;
 
-        public void RegisterType<TInterface, TImplement>() where TImplement : TInterface
+        private MyContainer()
         {
-            regs[typeof(TInterface)] = () => Resolve<TImplement>();
+            _registrations = new Dictionary<Type, IResolveStrategy>();
+            _singletonRegistrations = new Dictionary<Type, object>();
         }
 
-        public T Resolve<T>() => (T)GetInstance(typeof(T));
+        private static MyContainer _instance = null;
+        private static readonly object padlock = new object();
 
-        private object GetInstance(Type type)
+        public static MyContainer GetInstance()
         {
-            if (regs.TryGetValue(type, value: out Func<object> func))
+            lock (padlock)
             {
-                return func();
+                if (_instance is null)
+                    return new MyContainer();
             }
-            else if (!type.IsAbstract) return CreateInstance(type);
-            throw new InvalidOperationException("No registration for " + type);
+            return _instance;
         }
 
-        private object CreateInstance(Type implementationType)
+        public void RegisterTransient<TAbs, TImp>()
         {
-            var ctor = implementationType.GetConstructors().Single();
-            var paramTypes = ctor.GetParameters().Select(p => p.ParameterType);
-            var dependencies = paramTypes.Select(GetInstance).ToArray();
-            return Activator.CreateInstance(implementationType, dependencies);
+            if (!typeof(TAbs).IsAssignableFrom(typeof(TImp)))
+                throw new InvalidOperationException("register a child and master class only");
+
+            _registrations.Add(typeof(TAbs), new CreateNewConcreteObjectStrategy(_registrations, typeof(TImp)));
         }
 
-        public void RegisterInstance<TInterface>(TInterface instance)
+        public void RegisterSingleton<TAbs, TImp>()
         {
-            regs[typeof(TInterface)] = () => instance;
+            if (!typeof(TAbs).IsAssignableFrom(typeof(TImp)))
+                throw new InvalidOperationException("register a child and master class only");
+
+            _registrations
+                .Add(typeof(TAbs),
+                    new CreateNewSingletonObjectStrategy(new MasterResolveStrategy(_registrations), _singletonRegistrations, typeof(TImp)));
+
+        }
+
+        public object GetResult(Type type)
+        {
+            var foundResolver = _registrations.TryGetValue(type, out var resolveStrategy);
+
+            if (!foundResolver)
+                throw new InvalidOperationException($"There is no registration for type: {type.ToString()}");
+            return resolveStrategy.Resolve(type);
         }
     }
 }

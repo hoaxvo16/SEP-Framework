@@ -11,23 +11,43 @@ namespace IoC_Test
     {
         static void Main(string[] args)
         {
-            var container = new IoCContainer();
-            //container.RegisterType<ICar, BMW>();
-            //container.RegisterType<ICar, Audi>();
+            var container = MyContainer.GetInstance();
 
-            //var driver = container.Resolve<Driver>();
-            //driver.RunCar();
-            //driver.RunCar();
+            container.RegisterSingleton<IRegisterableObject, Student>();
 
-            ICar audi = new Audi();
-            container.RegisterInstance<ICar>(audi);
+            var result = container.GetResult(typeof(IRegisterableObject));
 
-            Driver driver1 = container.Resolve<Driver>();
-            driver1.RunCar();
-            driver1.RunCar();
+            var result2 = container.GetResult(typeof(IRegisterableObject));
 
-            Driver driver2 = container.Resolve<Driver>();
-            driver2.RunCar();
+            Console.WriteLine(result == result2);
+
+
+            Console.WriteLine(result.GetType());
+        }
+
+        public interface IRegisterableObject
+        {
+        }
+
+        public interface IRegisterableObject2
+        {
+
+        }
+
+        public class Student : IRegisterableObject
+        {
+            public string Name { get; set; }
+            public int Age { get; set; }
+
+            public Student(Address address)
+            {
+                Name = address.Content;
+            }
+        }
+
+        public class Address
+        {
+            public string Content { get; set; } = "Shit";
         }
 
         public interface ICar
