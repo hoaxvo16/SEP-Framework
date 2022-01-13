@@ -35,7 +35,7 @@ namespace SEPFramework.Builder
         public DataGridBuilder<T> BuildButtonColumn(string colHeader, string buttonContent, RoutedEventHandler clickEvent, Style buttonStyle=null)
         {
 
-            DataGridTemplateColumn col = ControlBuilder.BuilDataGridColButton(colHeader, buttonContent, clickEvent,buttonStyle);
+            DataGridTemplateColumn col = ControlFactory.BuilDataGridColButton(colHeader, buttonContent, clickEvent,buttonStyle);
             dataGrid.AddColumn(col);
            
             return this;
@@ -50,10 +50,10 @@ namespace SEPFramework.Builder
 
         public DataGridBuilder<T> BuildTopPanel(Panel container,Style panelStyl=null, Style buttonStyle=null)
         {
-            var panel = ControlBuilder.BuildStackPanel();
-            var addButton = ControlBuilder.BuildButton("Add new", dataGrid.AddNewButtonClick, buttonStyle);
-            var undoButton = ControlBuilder.BuildButton("Undo", dataGrid.UndoClick, buttonStyle);
-            var redoButton = ControlBuilder.BuildButton("Redo", dataGrid.RedoClick, buttonStyle);
+            var panel = ControlFactory.BuildStackPanel();
+            var addButton = ControlFactory.BuildButton("Add new", dataGrid.AddNewButtonClick, buttonStyle);
+            var undoButton = ControlFactory.BuildButton("Undo", dataGrid.UndoClick, buttonStyle);
+            var redoButton = ControlFactory.BuildButton("Redo", dataGrid.RedoClick, buttonStyle);
             panel.Children.Add(addButton);
             panel.Children.Add(undoButton);
             panel.Children.Add(redoButton);

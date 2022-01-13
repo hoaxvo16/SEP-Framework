@@ -52,9 +52,9 @@ namespace SEPFramework
 
         private void BuildTextBox(string textBoxName)
         {
-            TextBlock textBlock = ControlBuilder.BuilldTextBlock(textBoxName, 16);
+            TextBlock textBlock = ControlFactory.BuilldTextBlock(textBoxName, 16);
             textBlock.Margin = new Thickness(0, 20, 0, 0);
-            TextBox textBox = ControlBuilder.BuilldTextBox(textBoxName, "", 16, TextBox_TextChanged);
+            TextBox textBox = ControlFactory.BuilldTextBox(textBoxName, "", 16, TextBox_TextChanged);
             stackPanel.Children.Add(textBlock);
             stackPanel.Children.Add(textBox);
         }
@@ -91,9 +91,9 @@ namespace SEPFramework
         private void BuilDatePicker(string datePickerName)
         {
 
-            TextBlock textBlock = ControlBuilder.BuilldTextBlock(datePickerName, 16);
+            TextBlock textBlock = ControlFactory.BuilldTextBlock(datePickerName, 16);
             textBlock.Margin = new Thickness(0, 20, 0, 0);
-            var datePicker = ControlBuilder.BuildDatePicker(DateTime.Now, DatePicker_SelectedDateChanged);
+            var datePicker = ControlFactory.BuildDatePicker(DateTime.Now, DatePicker_SelectedDateChanged);
             datePicker.Name = datePickerName;
             stackPanel.Children.Add(textBlock);
             stackPanel.Children.Add(datePicker);

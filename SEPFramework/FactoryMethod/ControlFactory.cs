@@ -7,7 +7,7 @@ using System.Windows.Controls;
 
 namespace SEPFramework
 {
-    internal class ControlBuilder
+    internal class ControlFactory
     {
         public static DataGridTemplateColumn BuilDataGridColButton(string header,string buttonContent,RoutedEventHandler clickEvent,Style buttonStyle)
         {
