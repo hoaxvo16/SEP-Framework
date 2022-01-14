@@ -9,10 +9,18 @@ namespace SEPFramework.Membership
     /// </summary>
     public partial class Login : Window
     {
-        public Login()
+        public Login(Window window)
         {
             InitializeComponent();
+            OpenWindow = window;
         }
+
+        private static Window OpenWindow;
+
+        private static bool canLogIn = true;
+        private static bool canAccess = true;
+
+        
 
         public void btnLogin_Click(object sender, RoutedEventArgs e)
         {
@@ -24,6 +32,9 @@ namespace SEPFramework.Membership
             if (logInHandler.IsLogin)
             {
                 // Xử lý khi đã đăng nhập thành công
+                canAccess = false;
+                this.Close();
+                OpenWindow.Show();
             }
             
         }
@@ -59,15 +70,13 @@ namespace SEPFramework.Membership
 
 
 
-        public string UserName
-        {
-            get { return txtUserName.Text; }
-        }
+        public string UserName => txtUserName.Text;
 
-        public string Password
-        {
-            get { return txtPassword.Password; }
-        }
+        public string Password => txtPassword.Password;
+
+        public static bool CanLogIn => canLogIn;
+
+        public static bool CanAccess => canAccess;
 
         private void lblForgotPassword_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
