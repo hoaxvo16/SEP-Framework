@@ -41,23 +41,23 @@ namespace SEPFramework.Builder
             return this;
         }
 
-        public DataGridBuilder<T> BuildEditButton(Style buttonStyle)
+        public DataGridBuilder<T> BuildEditButton(Style buttonStyle=null)
         {
         
             BuildButtonColumn("Edit", "Edit", dataGrid.EditButtonClick, buttonStyle);
             return this;
         }
 
-        public DataGridBuilder<T> BuildDeleteButton(Style buttonStyle)
+        public DataGridBuilder<T> BuildDeleteButton(Style buttonStyle=null)
         {
             BuildButtonColumn("Delete", "Delete", dataGrid.DeleteItemClick, buttonStyle);
      
             return this;
         }
 
-        public DataGridBuilder<T> BuildTopPanel(Panel container,Style panelStyl=null, Style buttonStyle=null)
+        public DataGridBuilder<T> BuildTopPanel(Panel container,Style panelStyle=null, Style buttonStyle=null)
         {
-            var panel = ControlFactory.BuildStackPanel();
+            var panel = ControlFactory.BuildStackPanel(panelStyle);
             var addButton = ControlFactory.BuildButton("Add new", dataGrid.AddNewButtonClick, buttonStyle);
             var undoButton = ControlFactory.BuildButton("Undo", dataGrid.UndoClick, buttonStyle);
             var redoButton = ControlFactory.BuildButton("Redo", dataGrid.RedoClick, buttonStyle);

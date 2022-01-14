@@ -99,9 +99,31 @@ namespace SEPFramework.Observer
             }
         }
 
+
+        public void RemoveIfPropertyEqual(string propertyName, object value)
+        {
+            List<int> indexList = new List<int>();
+            for (int i = 0; i < dataSource.Count; i++)
+            {
+                var propertyValue = dataSource[i].GetType().GetProperty(propertyName).GetValue(dataSource[i], null);
+                if (propertyValue == value)
+                {
+                    indexList.Add(i);
+                }
+            }
+
+            foreach (int id in indexList)
+            {
+                dataSource.RemoveAt(id);
+            }
+            this.Notify();
+        }
+
         private void UpdateCareTaker()
         {
             this.careTaker.AddMemento(new Memento<T>(this.dataSource));
         }
+
+        
     }
 }

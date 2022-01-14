@@ -28,7 +28,7 @@ namespace SEPFramework
         {
             return UIElement;
         }
-        public void SetDataList(List<T> dataList)
+        public virtual void SetDataList(List<T> dataList)
         {
             this.data = new ObservableDataSource<T>(dataList);
             this.UIElement.ItemsSource = dataList;
@@ -36,12 +36,12 @@ namespace SEPFramework
            
         }
 
-        public void AddAction(string actionName, Action<object[]> function)
+        public virtual void AddAction(string actionName, Action<object[]> function)
         {
             this.actionStore.AddAction(actionName, function);
         }
 
-        public void AddColumn(DataGridTemplateColumn col)
+        public virtual void AddColumn(DataGridTemplateColumn col)
         {
             this.UIElement.Columns.Add(col);
         }
@@ -55,7 +55,7 @@ namespace SEPFramework
         }
 
         //Render
-        public void Render(Panel container)
+        public  void Render(Panel container)
         {
             container.Children.Add(UIElement);
         }
@@ -93,14 +93,14 @@ namespace SEPFramework
 
         }
 
-        public void AddNewButtonClick(object sender, RoutedEventArgs e)
+        public virtual void AddNewButtonClick(object sender, RoutedEventArgs e)
         {
             var item = this.data[0];
             var addForm = new AddNewForm();
             addForm.Init(item, FinishAddNew);
         }
 
-        public void DeleteItemClick(object sender, RoutedEventArgs e)
+        public virtual void DeleteItemClick(object sender, RoutedEventArgs e)
         {
             var isAbort = false;
             var parameters = new object[2]{data[UIElement.SelectedIndex],isAbort};
@@ -112,7 +112,7 @@ namespace SEPFramework
             }
         }
 
-        public void EditButtonClick(object sender, RoutedEventArgs e)
+        public virtual void EditButtonClick(object sender, RoutedEventArgs e)
         {
             var selectedItem = this.data[UIElement.SelectedIndex];
 
@@ -124,7 +124,7 @@ namespace SEPFramework
 
   
 
-        public virtual void FinishAddNew(object newData)
+        public virtual  void FinishAddNew(object newData)
         {
             var isAbort = false;
             var parameters = new object[2] { newData, isAbort };
@@ -149,14 +149,14 @@ namespace SEPFramework
         }
 
         //Undo redo
-        public virtual void UndoClick(object sender, RoutedEventArgs e)
+        public void UndoClick(object sender, RoutedEventArgs e)
         {
             this.data.Undo();
             
 
         }
 
-        public virtual void RedoClick(object sender, RoutedEventArgs e)
+        public void RedoClick(object sender, RoutedEventArgs e)
         {
             this.data.Redo();
         }
@@ -165,26 +165,11 @@ namespace SEPFramework
 
 
 
-        //Public method for user
-
       
 
-        public void RemoveIfPropertyEqual(string propertyName, object value)
+        public virtual void RemoveIfPropertyEqual(string propertyName, object value)
         {
-            List<int> indexList = new List<int>();
-            for (int i = 0; i < data.Count(); i++)
-            {
-                var propertyValue = data[i].GetType().GetProperty(propertyName).GetValue(data[i], null);
-                if (propertyValue == value)
-                {
-                    indexList.Add(i);
-                }
-            }
-
-            foreach (int id in indexList)
-            {
-                data.RemoveAt(id);
-            }
+           this.data.RemoveIfPropertyEqual(propertyName, value);
         }
 
         public void Update(List<T> data)

@@ -45,7 +45,11 @@ namespace Test
 
         public class InheritDataGrid<User>: SEPDataGrid<User>
         {
-             
+            public override void FinishAddNew(object newData)
+            {
+                MessageBox.Show("sdfsdf");
+            }
+
         }
 
         public InheritDataGrid<User> dataGrid = new InheritDataGrid<User>();
@@ -69,7 +73,7 @@ namespace Test
 
             DataGridBuilder<User> builder = new DataGridBuilder<User>();
 
-            builder.BuildFor(dataGrid).BuildData(users).BuildTopPanel(stackPanel).BuildCellStyle((Style)this.FindResource("LabelTemplate"));
+            builder.BuildFor(dataGrid).BuildData(users).BuildTopPanel(stackPanel).BuildDeleteButton().BuildEditButton();
           
            
             dataGrid.Render(stackPanel);
