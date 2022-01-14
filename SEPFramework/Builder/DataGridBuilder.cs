@@ -41,10 +41,17 @@ namespace SEPFramework.Builder
             return this;
         }
 
-        public DataGridBuilder<T> BuildDefaultButton(Style buttonStyle)
+        public DataGridBuilder<T> BuildEditButton(Style buttonStyle)
+        {
+        
+            BuildButtonColumn("Edit", "Edit", dataGrid.EditButtonClick, buttonStyle);
+            return this;
+        }
+
+        public DataGridBuilder<T> BuildDeleteButton(Style buttonStyle)
         {
             BuildButtonColumn("Delete", "Delete", dataGrid.DeleteItemClick, buttonStyle);
-            BuildButtonColumn("Edit", "Edit", dataGrid.EditButtonClick, buttonStyle);
+     
             return this;
         }
 

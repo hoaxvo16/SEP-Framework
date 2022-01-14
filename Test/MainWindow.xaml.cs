@@ -66,6 +66,7 @@ namespace Test
             users.Add(new User() { Id = 3, Name = "Vi", Birthday = new DateTime(1993, 9, 21), Address = "Hue", GPA = 8.8 });
             users.Add(new User() { Id = 4, Name = "Tan", Birthday = new DateTime(1996, 6, 1), Address = "HN", GPA = 9.5 });
             users.Add(new User() { Id = 5, Name = "Duy", Birthday = new DateTime(2001, 12, 13), Address = "CM", GPA = 7.5 });
+
             DataGridBuilder<User> builder = new DataGridBuilder<User>();
 
             builder.BuildFor(dataGrid).BuildData(users).BuildTopPanel(stackPanel).BuildCellStyle((Style)this.FindResource("LabelTemplate"));

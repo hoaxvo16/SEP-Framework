@@ -69,10 +69,13 @@ namespace SEPFramework
             return button;
         }
 
-        public static StackPanel BuildStackPanel ()
+        public static StackPanel BuildStackPanel (Style stackPanelStyle)
         {
             var panel = new StackPanel();
-            panel.Orientation = Orientation.Horizontal;
+            if (stackPanelStyle != null)
+            {
+                panel.Style = stackPanelStyle;
+            }
            
             return panel;
         }
