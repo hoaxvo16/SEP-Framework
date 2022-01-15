@@ -18,7 +18,6 @@ namespace SEPFramework.Membership
         private static Window OpenWindow;
 
         private static bool canLogIn = true;
-        private static bool canAccess = true;
 
         
 
@@ -32,7 +31,6 @@ namespace SEPFramework.Membership
             if (logInHandler.IsLogin)
             {
                 // Xử lý khi đã đăng nhập thành công
-                canAccess = false;
                 this.Close();
                 OpenWindow.Show();
             }
@@ -75,8 +73,6 @@ namespace SEPFramework.Membership
         public string Password => txtPassword.Password;
 
         public static bool CanLogIn => canLogIn;
-
-        public static bool CanAccess => canAccess;
 
         private void lblForgotPassword_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
