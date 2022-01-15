@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using IoC;
 using SEPFramework.Membership;
+using IoCContainer; 
 
 namespace SEPFramework.Factory
 {
@@ -38,15 +40,29 @@ namespace SEPFramework.Factory
     {
         public static LogInHandler getType(string type)
         {
+            var container = MyContainer.GetInstance();
+
+
             if (type == "Normal")
-                return new NormalLogin();
+            {
+                container.RegisterSingleton<LogInHandler, NormalLogin>();
+            }
             else if (type == "Facebook")
-                return new FacebookLogin();
+                container.RegisterSingleton<LogInHandler,FacebookLogin>();
             else if (type == "Twitter")
-                return new TwitterLogin();
+                container.RegisterSingleton<LogInHandler,TwitterLogin>();
             else if (type == "Google")
-                return new GoogleLogin();
-            return null;
+                container.RegisterSingleton<LogInHandler, GoogleLogin>();
+
+            try
+            {
+                var result = (LogInHandler) container.GetResult(typeof(LogInHandler));
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 
