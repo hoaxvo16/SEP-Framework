@@ -9,7 +9,8 @@ namespace SEPFramework.Builder
 {
     public class DataGridBuilder<T> : IDataBuilder<T>, IStyleBuilder<T>,IActionBuilder<T>,IControlBuilder<T>
     {
-        private  SEPDataGrid<T> dataGrid;
+        private SEPDataGrid<T> dataGrid;
+   
 
         public DataGridBuilder<T> BuildFor(SEPDataGrid<T> input)
         {
@@ -41,30 +42,24 @@ namespace SEPFramework.Builder
             return this;
         }
 
-        public DataGridBuilder<T> BuildEditButton(Style buttonStyle=null)
+        public DataGridBuilder<T> BuildEditButton(string header,string content,Style buttonStyle=null)
         {
         
-            BuildButtonColumn("Edit", "Edit", dataGrid.EditButtonClick, buttonStyle);
+            BuildButtonColumn(header, content, dataGrid.EditButtonClick, buttonStyle);
             return this;
         }
 
-        public DataGridBuilder<T> BuildDeleteButton(Style buttonStyle=null)
+        public DataGridBuilder<T> BuildDeleteButton(string header, string content, Style buttonStyle=null)
         {
-            BuildButtonColumn("Delete", "Delete", dataGrid.DeleteItemClick, buttonStyle);
+            BuildButtonColumn(header, content, dataGrid.DeleteItemClick, buttonStyle);
      
             return this;
         }
 
-        public DataGridBuilder<T> BuildTopPanel(Panel container,Style panelStyle=null, Style buttonStyle=null)
+        public DataGridBuilder<T> BuildToolBar(Panel container,Style panelStyle=null)
         {
-            var panel = ControlFactory.BuildStackPanel(panelStyle);
-            var addButton = ControlFactory.BuildButton("Add new", dataGrid.AddNewButtonClick, buttonStyle);
-            var undoButton = ControlFactory.BuildButton("Undo", dataGrid.UndoClick, buttonStyle);
-            var redoButton = ControlFactory.BuildButton("Redo", dataGrid.RedoClick, buttonStyle);
-            panel.Children.Add(addButton);
-            panel.Children.Add(undoButton);
-            panel.Children.Add(redoButton);
-            container.Children.Add(panel);
+            dataGrid.ToolBar=ControlFactory.BuildStackPanel(panelStyle);
+            container.Children.Add(dataGrid.ToolBar);
             return this;
         }
 
@@ -85,6 +80,29 @@ namespace SEPFramework.Builder
             return this;
         }
 
-   
+     
+        public DataGridBuilder<T> BuildAddNewButton( string content, Style buttonStyle = null)
+        {
+            var button = ControlFactory.BuildButton(content,dataGrid.AddNewButtonClick, buttonStyle);
+
+           dataGrid.ToolBar.Children.Add(button);
+            return this;
+        }
+
+        public DataGridBuilder<T> BuildUndoButton( string content, Style buttonStyle = null)
+        {
+            var button = ControlFactory.BuildButton(content, dataGrid.UndoClick, buttonStyle);
+
+            dataGrid.ToolBar.Children.Add(button);
+            return this;
+        }
+
+        public DataGridBuilder<T> BuildRedoButton(string content, Style buttonStyle = null)
+        {
+            var button = ControlFactory.BuildButton(content, dataGrid.RedoClick, buttonStyle);
+
+            dataGrid.ToolBar.Children.Add(button);
+            return this;
+        }
     }
 }

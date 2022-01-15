@@ -16,6 +16,7 @@ namespace SEPFramework
         //Atributes
 
         protected DataGrid UIElement;
+        public StackPanel ToolBar { get; set; }
         protected ObservableDataSource<T> data;
         protected ActionStore actionStore = new ActionStore();
 
@@ -24,10 +25,7 @@ namespace SEPFramework
 
         //Getter, Setter
 
-        public DataGrid GetUIElement()
-        {
-            return UIElement;
-        }
+     
         public virtual void SetDataList(List<T> dataList)
         {
             this.data = new ObservableDataSource<T>(dataList);
@@ -35,6 +33,7 @@ namespace SEPFramework
             this.data.Subscribe(this);
            
         }
+
 
         public virtual void AddAction(string actionName, Action<object[]> function)
         {

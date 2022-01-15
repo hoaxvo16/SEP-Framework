@@ -73,7 +73,7 @@ namespace Test
 
             DataGridBuilder<User> builder = new DataGridBuilder<User>();
 
-            builder.BuildFor(dataGrid).BuildData(users).BuildTopPanel(stackPanel).BuildDeleteButton().BuildEditButton();
+            builder.BuildFor(dataGrid).BuildData(users).BuildToolBar(stackPanel).BuildDeleteButton("Xoa", "Xoa").BuildAddNewButton("Them moi");
           
            
             dataGrid.Render(stackPanel);

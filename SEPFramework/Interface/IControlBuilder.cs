@@ -11,10 +11,17 @@ namespace SEPFramework.Interface
     {
         public DataGridBuilder<T> BuildButtonColumn(string colHeader, string buttonContent, RoutedEventHandler clickEvent, Style buttonStyle = null);
 
-        public DataGridBuilder<T> BuildDeleteButton(Style buttonStyle = null);
+        public DataGridBuilder<T> BuildDeleteButton(string header,string content,Style buttonStyle = null);
 
-        public DataGridBuilder<T> BuildEditButton(Style buttonStyle = null);
+        public DataGridBuilder<T> BuildEditButton(string header,string content,Style buttonStyle = null);
 
-        public DataGridBuilder<T> BuildTopPanel(Panel container, Style panelStyle = null, Style buttonStyle = null);
+        public DataGridBuilder<T> BuildToolBar(Panel container, Style panelStyle = null);
+
+        public DataGridBuilder<T> BuildAddNewButton(string content,Style buttonStyle = null);   
+
+        public DataGridBuilder<T> BuildUndoButton(string content,Style buttonStyle = null);
+        public DataGridBuilder<T> BuildRedoButton(string content, Style buttonStyle = null);
+
+
     }
 }
