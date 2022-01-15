@@ -10,4 +10,10 @@
     <ProjectReference Include="..\SEPFramework\SEPFramework.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="data.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
