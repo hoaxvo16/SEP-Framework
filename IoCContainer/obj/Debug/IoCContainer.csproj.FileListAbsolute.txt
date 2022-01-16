@@ -1,0 +1,6 @@
+C:\Users\LENOVO\Desktop\SEP-Framework\IoCContainer\bin\Debug\IoCContainer.dll
+C:\Users\LENOVO\Desktop\SEP-Framework\IoCContainer\bin\Debug\IoCContainer.pdb
+C:\Users\LENOVO\Desktop\SEP-Framework\IoCContainer\obj\Debug\IoCContainer.csproj.AssemblyReference.cache
+C:\Users\LENOVO\Desktop\SEP-Framework\IoCContainer\obj\Debug\IoCContainer.csproj.CoreCompileInputs.cache
+C:\Users\LENOVO\Desktop\SEP-Framework\IoCContainer\obj\Debug\IoCContainer.dll
+C:\Users\LENOVO\Desktop\SEP-Framework\IoCContainer\obj\Debug\IoCContainer.pdb

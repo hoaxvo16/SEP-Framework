@@ -104,24 +104,15 @@ namespace SEPFramework.Builder
             {
                 button.Style = buttonStyle;
             }
-            //button.Click += ClickEventCLose(window);
             button.Click += (sender, EventArgs) => {
-                //Login frm = new Login(window);
-                //frm.Show();
                 window.Close();
                 
             };
 
-            //void buttonNext_Click(object sender, EventArgs e, int index)
-            //{
-            //    //your code
-            //}
 
             dataGrid.ToolBar.Children.Add(button);
 
             return this;
-            //dataGrid.ToolBar.Children.Add(button);
-            //return this;
         }
 
 

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "AmRKwSNRTJseWKBKg06mHbOt4Zxj02SFNAyn2OKiUsqSYzkiVDDvMenbHmehulG4nXkq74moN0O03EAewtjGUA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\LENOVO\\Desktop\\SEP-Framework\\Test\\Test.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\LENOVO\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.20\\microsoft.netcore.app.host.win-x64.3.1.20.nupkg.sha512"
+  ],
+  "logs": []
+}

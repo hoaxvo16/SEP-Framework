@@ -36,15 +36,16 @@ namespace Test
             public double GPA { get; set; }
         }
 
-        public class Product {
+        public class Product
+        {
             public int Id { get; set; }
 
             public string Name { get; set; }
 
-           public int Price { get; set; }   
+            public int Price { get; set; }
         }
 
-        public class UserDataGrid<User>: SEPDataGrid<User>
+        public class UserDataGrid<User> : SEPDataGrid<User>
         {
             public override void FinishAddNew(object newData)
             {
@@ -68,53 +69,79 @@ namespace Test
             //Just init data;
             List<User> users = new List<User>();
             List<Product> products = new List<Product>();
-         ;
-            
+            ;
+
             products.Add(new Product { Price = 1000, Name = "Product1" });
             products.Add(new Product { Price = 2000, Name = "Product2" });
-        
-            users.Add(new User() { Id = 1, Name = "Hoa",
-             Birthday = new DateTime(1971, 7, 23), Address = "HCM",GPA= 9.6 });
-            users.Add(new User() { Id = 2, Name = "An", 
-            Birthday = new DateTime(1974, 1, 17), Address = "DN",GPA=8.5 });
-            users.Add(new User() { Id = 3, Name = "Vi", 
-            Birthday = new DateTime(1993, 9, 21), Address = "Hue", GPA = 8.8 });
-            users.Add(new User() { Id = 4, Name = "Tan",
-             Birthday = new DateTime(1996, 6, 1), Address = "HN", GPA = 9.5 });
-            users.Add(new User() { Id = 5, Name = "Duy",
-             Birthday = new DateTime(2001, 12, 13), Address = "CM", GPA = 7.5 });
+
+            users.Add(new User()
+            {
+                Id = 1,
+                Name = "Hoa",
+                Birthday = new DateTime(1971, 7, 23),
+                Address = "HCM",
+                GPA = 9.6
+            });
+            users.Add(new User()
+            {
+                Id = 2,
+                Name = "An",
+                Birthday = new DateTime(1974, 1, 17),
+                Address = "DN",
+                GPA = 8.5
+            });
+            users.Add(new User()
+            {
+                Id = 3,
+                Name = "Vi",
+                Birthday = new DateTime(1993, 9, 21),
+                Address = "Hue",
+                GPA = 8.8
+            });
+            users.Add(new User()
+            {
+                Id = 4,
+                Name = "Tan",
+                Birthday = new DateTime(1996, 6, 1),
+                Address = "HN",
+                GPA = 9.5
+            });
+            users.Add(new User()
+            {
+                Id = 5,
+                Name = "Duy",
+                Birthday = new DateTime(2001, 12, 13),
+                Address = "CM",
+                GPA = 7.5
+            });
 
             DataGridBuilder<User> builder = new DataGridBuilder<User>();
 
             builder.BuildFor(dataGrid).BuildData(users).BuildToolBar(stackPanel).
+            BuildLogOutButton(this, "Log out").
             BuildDeleteButton("Xoa", "Xoa").
             BuildAddNewButton("Themmoi").
-            BuildLogOutButton(this, "LOg out").
-
-            BuildEditButton("Chinh","chinh");
+            BuildEditButton("Chinh", "chinh");
             dataGrid.Render(stackPanel);
             DataGridBuilder<Product> builder1 = new DataGridBuilder<Product>();
 
             builder1.BuildFor(dataGrid1).BuildData(products);
             dataGrid1.Render(stackPanel);
-           
-            
-           
+
+
+
         }
-
-
-
-
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
+
         private void Confirm(object[] result)
         {
             User temp = (User)result[0];
             MessageBox.Show(temp.Name);
-            
+
         }
 
         private void OnRowEdit(object[] result)

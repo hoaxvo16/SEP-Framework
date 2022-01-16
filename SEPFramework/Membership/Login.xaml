@@ -52,7 +52,6 @@
         </Label>
         <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Content="Đăng nhập" Width="80" Margin="0,4,4,4" Height="30" x:Name="btnLogin" Click="btnLogin_Click"/>
-            <Button Content="Thoát" Width="80" Margin="4,4,0,4" Height="30" x:Name="btnExit" Click="btnExit_Click"/>
         </StackPanel>
     </Grid>
 </Window>

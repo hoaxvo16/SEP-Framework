@@ -9,16 +9,10 @@ namespace SEPFramework.Membership
     /// </summary>
     public partial class Login : Window
     {
-        public Login(Window window)
+        public Login()
         {
-            Closing += (sender, CancelEventArgs) => { window.Close(); };
             InitializeComponent();
-            OpenWindow = window;
         }
-
-
-
-        private static Window OpenWindow;
 
         public void btnLogin_Click(object sender, RoutedEventArgs e)
         {
@@ -30,8 +24,7 @@ namespace SEPFramework.Membership
             if (logInHandler.IsLogin)
             {
                 // Xử lý khi đã đăng nhập thành công
-                this.Close();
-                OpenWindow.Show();
+                this.Close();                
             }
             
         }
@@ -52,12 +45,6 @@ namespace SEPFramework.Membership
             }
             return true;
         }
-        private void btnExit_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-
 
         private void lblRegister_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
