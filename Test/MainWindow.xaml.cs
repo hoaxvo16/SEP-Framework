@@ -15,7 +15,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SEPFramework;
 using SEPFramework.Builder;
-using SEPFramework.Membership;
 
 namespace Test
 {
@@ -44,7 +43,7 @@ namespace Test
            public int Price { get; set; }   
         }
 
-        public class InheritDataGrid<User>: SEPDataGrid<User>
+        public class UserDataGrid<User>: SEPDataGrid<User>
         {
             public override void FinishAddNew(object newData)
             {
@@ -53,57 +52,51 @@ namespace Test
 
         }
 
-        public InheritDataGrid<User> dataGrid = new InheritDataGrid<User>();
+        public class ProductDataGrid<Product> : SEPDataGrid<Product>
+        {
 
+        }
+
+        public UserDataGrid<User> dataGrid = new UserDataGrid<User>();
+
+        public ProductDataGrid<Product> dataGrid1 = new ProductDataGrid<Product>();
 
         public MainWindow()
         {
-<<<<<<< HEAD
             InitializeComponent();
             //Just init data;
             List<User> users = new List<User>();
             List<Product> products = new List<Product>();
-            List<object> data = new List<object>();
+         ;
             
-            data.Add(new Product { Price = 1000, Name = "Product1" });
-            data.Add(new Product { Price = 2000, Name = "Product2" });
+            products.Add(new Product { Price = 1000, Name = "Product1" });
+            products.Add(new Product { Price = 2000, Name = "Product2" });
         
-            users.Add(new User() { Id = 1, Name = "Hoa", Birthday = new DateTime(1971, 7, 23), Address = "HCM",GPA= 9.6 });
-            users.Add(new User() { Id = 2, Name = "An", Birthday = new DateTime(1974, 1, 17), Address = "DN",GPA=8.5 });
-            users.Add(new User() { Id = 3, Name = "Vi", Birthday = new DateTime(1993, 9, 21), Address = "Hue", GPA = 8.8 });
-            users.Add(new User() { Id = 4, Name = "Tan", Birthday = new DateTime(1996, 6, 1), Address = "HN", GPA = 9.5 });
-            users.Add(new User() { Id = 5, Name = "Duy", Birthday = new DateTime(2001, 12, 13), Address = "CM", GPA = 7.5 });
+            users.Add(new User() { Id = 1, Name = "Hoa",
+             Birthday = new DateTime(1971, 7, 23), Address = "HCM",GPA= 9.6 });
+            users.Add(new User() { Id = 2, Name = "An", 
+            Birthday = new DateTime(1974, 1, 17), Address = "DN",GPA=8.5 });
+            users.Add(new User() { Id = 3, Name = "Vi", 
+            Birthday = new DateTime(1993, 9, 21), Address = "Hue", GPA = 8.8 });
+            users.Add(new User() { Id = 4, Name = "Tan",
+             Birthday = new DateTime(1996, 6, 1), Address = "HN", GPA = 9.5 });
+            users.Add(new User() { Id = 5, Name = "Duy",
+             Birthday = new DateTime(2001, 12, 13), Address = "CM", GPA = 7.5 });
 
             DataGridBuilder<User> builder = new DataGridBuilder<User>();
 
-            builder.BuildFor(dataGrid).BuildData(users).BuildToolBar(stackPanel).BuildDeleteButton("Xoa", "Xoa").BuildAddNewButton("Them moi");
-          
-           
+            builder.BuildFor(dataGrid).BuildData(users).BuildToolBar(stackPanel).
+            BuildDeleteButton("Xoa", "Xoa").
+            BuildAddNewButton("Them moi").
+            BuildEditButton("Chinh","chinh",(Style)this.FindResource("EditButton"));
             dataGrid.Render(stackPanel);
+            DataGridBuilder<Product> builder1 = new DataGridBuilder<Product>();
+
+            builder1.BuildFor(dataGrid1).BuildData(products);
+            dataGrid1.Render(stackPanel);
            
-=======
-            InitializeComponent();
-            //Login frm = new Login();
-            //frm.Show();
-
-            //Register register = new Register();
-            //register.Show();
-            //Just init data;
-
-            List<User> users = new List<User>();
-            users.Add(new User() { Id = 1, Name = "Hoa", Birthday = new DateTime(1971, 7, 23), Address = "HCM", GPA = 9.6 });
-            users.Add(new User() { Id = 2, Name = "An", Birthday = new DateTime(1974, 1, 17), Address = "DN", GPA = 8.5 });
-            users.Add(new User() { Id = 3, Name = "Vi", Birthday = new DateTime(1993, 9, 21), Address = "Hue", GPA = 8.8 });
-            users.Add(new User() { Id = 4, Name = "Tan", Birthday = new DateTime(1996, 6, 1), Address = "HN", GPA = 9.5 });
-            users.Add(new User() { Id = 5, Name = "Duy", Birthday = new DateTime(2001, 12, 13), Address = "CM", GPA = 7.5 });
-            DataGridBuilder<User> builder = new DataGridBuilder<User>();
-            DataGrid = builder.BuildData(users).
-                BuildDefaultButton().BuildTopPanel(stackPanel).
-                BuildAction("onRowDelete", Confirm).
-                BuildAction("onRowEdit", OnRowEdit).GetDataGrid();
-            DataGrid.Render(stackPanel);
-
->>>>>>> origin/backup
+            
+           
         }
 
 
@@ -139,6 +132,5 @@ namespace Test
         {
 
         }
-
     }
 }
