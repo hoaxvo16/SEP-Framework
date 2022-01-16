@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Accounts>
+  <Account>
+    <Email>phamtan123@gmail.com</Email>
+    <UserName>phamtan123</UserName>
+    <PassWord>phamtan123</PassWord>
+  </Account>
+  <Account>
+    <Email>phamtan@gmail.com</Email>
+    <UserName>phamtan</UserName>
+    <PassWord>phamtan</PassWord>
+  </Account>
+  <Account>
+    <Email>test@gmail.com</Email>
+    <UserName>test</UserName>
+    <PassWord>test</PassWord>
+  </Account>
+  <Account>
+    <Email>tan@test</Email>
+    <UserName>tan</UserName>
+    <PassWord>tan</PassWord>
+  </Account>
+  <Account>
+    <Email>hehe@gmail.com</Email>
+    <UserName>hehe</UserName>
+    <PassWord>heh</PassWord>
+  </Account>
+</Accounts>

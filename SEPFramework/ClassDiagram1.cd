@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SEPFramework.SEPDataGrid&lt;T&gt;" Collapsed="true">
+    <Position X="5.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAQIgAAAgiAgIAAAECEBACCAAAgAAAABAQAEAgAAA=</HashCode>
+      <FileName>SEPDataGrid.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SEPFramework.Memento.Memento&lt;T&gt;">
+    <Position X="9.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Memento\Memento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SEPFramework.Memento.CareTaker&lt;T&gt;">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAABIAAgAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Memento\CareTaker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SEPFramework.ActionStore">
+    <Position X="7" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAACAAAAAAAAAAAAAAAAAAAAAAABAgAAA=</HashCode>
+      <FileName>Strategy\ActionStore.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SEPFramework.Builder.DataGridBuilder&lt;T&gt;" Collapsed="true">
+    <Position X="1.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAEAIAAACAgAAAAAAEACBAAAAAAAAAAA=</HashCode>
+      <FileName>Builder\DataGridBuilder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SEPFramework.ControlBuilder">
+    <Position X="4.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAgQEACAAEAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Builder\ControlBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="SEPFramework.Interface.ISubscriber&lt;T&gt;">
+    <Position X="3.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interface\ISubscriber.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SEPFramework.Interface.IObservableDataSource&lt;T&gt;">
+    <Position X="8" Y="0.5" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAABACAABAQAAAAAAAAAA=</HashCode>
+      <FileName>Interface\IObservableDataSource.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="SEPDataGrid" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="SEPFramework.Interface.IDataGridBuilder&lt;T&gt;">
+    <Position X="2" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAEAIAAACAAAAAAAAAACBAAAAAAAAAAA=</HashCode>
+      <FileName>Interface\IDataGridBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
