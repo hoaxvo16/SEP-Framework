@@ -88,7 +88,7 @@ namespace Test
             builder.BuildFor(dataGrid).BuildData(users).BuildToolBar(stackPanel).
             BuildDeleteButton("Xoa", "Xoa").
             BuildAddNewButton("Them moi").
-            BuildEditButton("Chinh","chinh",(Style)this.FindResource("EditButton"));
+            BuildEditButton("Chinh","chinh");
             dataGrid.Render(stackPanel);
             DataGridBuilder<Product> builder1 = new DataGridBuilder<Product>();
 
