@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 
 
-namespace SEPFramework
+namespace SEPFramework.FactoryMethod
 {
     internal class ControlFactory
     {

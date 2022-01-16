@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using SEPFramework.Factory;
+using SEPFramework.FactoryMethod;
 
 namespace SEPFramework.Membership
 {
