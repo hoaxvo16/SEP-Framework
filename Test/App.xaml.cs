@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-
+using SEPFramework.Membership;
 namespace Test
 {
     /// <summary>
@@ -13,5 +13,20 @@ namespace Test
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            //add some bootstrap or startup logic 
+            var identity = Login.CanLogIn;
+            if (identity == true)
+            {
+                Login login = new Login(new MainWindow());
+                login.Show();
+            }
+            else
+            {
+                MainWindow mainView = new MainWindow();
+                mainView.Show();
+            }
+        }
     }
 }

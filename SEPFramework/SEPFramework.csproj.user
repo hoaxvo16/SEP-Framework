@@ -8,12 +8,30 @@
     <Compile Update="Form\EditForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Membership\ForgotPassword.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Membership\Login.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Membership\Register.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Form\AddNewForm.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Form\EditForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Membership\ForgotPassword.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Membership\Login.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Membership\Register.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
